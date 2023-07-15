@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { Inter } from 'next/font/google'
 
 import { MainLayout } from '@/components';
@@ -18,7 +19,7 @@ const HomePage = () => {
           </Button>
         </Grid>
         <Grid item xs={6}>
-
+          <img src="/ilust-home.svg" alt="Kill a Server" width="100%" />
         </Grid>
       </Grid>
     </MainLayout>
