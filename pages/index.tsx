@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import { Inter } from 'next/font/google'
 
 import { MainLayout } from '@/components';
@@ -12,14 +11,17 @@ const HomePage = () => {
     <MainLayout>
       <Grid container minHeight="100vh" justifyContent="center" alignItems="center">
         <Grid item xs={6}>
-          <Typography variant="h3"> Build Inform Advance </Typography>
-          <Typography variant="h6" mb={1}> Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups. </Typography>
-          <Button className='custom-btn'>
-            Apply For Accelerator
-          </Button>
+
         </Grid>
         <Grid item xs={6}>
-          <img src="/ilust-home.svg" alt="Kill a Server" width="100%" />
+          <Typography variant="h3" textTransform="uppercase"> search and destroy </Typography>
+          <Typography variant="h6" mb={1}> Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups. </Typography>
+          <Button variant='contained'>
+            Apply For Accelerator
+          </Button>
+          <Button variant='outlined'>
+            Apply
+          </Button>
         </Grid>
       </Grid>
     </MainLayout>

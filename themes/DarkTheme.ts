@@ -2,10 +2,13 @@ import { createTheme } from "@mui/material";
 
 export const DarkTheme = createTheme({
     palette: {
-        mode: 'dark'
+        mode: 'dark',
+        primary: {
+            main: '#EF1679',
+        }
     },
     typography: {
-        fontFamily: 'Montserrat',
+        fontFamily: 'Orbitron',
     },
     components: {
         MuiAppBar: {
@@ -33,14 +36,24 @@ export const DarkTheme = createTheme({
                     fontWeight: 600,
                     color: 'white',
                     paddingLeft: 15,
-                    paddingRight: 15
+                    paddingRight: 15,
+                    borderRadius: 0,
+                },
+                outlined: {
+                    border: '2px solid #EF1679',
+                    '&:hover': {
+                        border: '2px solid #EF1679'
+                    }
+                },
+                contained: {
+                    border: '1px solid #EF1679'
                 }
-            }
+            },
         },
         MuiTypography: {
             styleOverrides: {
                 h3: {
-                    fontWeight: 700
+                    fontWeight: 600
                 }
             }
         }

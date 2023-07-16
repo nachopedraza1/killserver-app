@@ -10,10 +10,10 @@ interface Props {
 }
 
 const navLinks = [
-    { text: 'Home', path: '/' },
-    { text: 'Servers', path: '/' },
-    { text: 'Clients', path: '/' },
-    { text: 'About', path: '/' },
+    { text: 'HOME', path: '/' },
+    { text: 'SERVERS', path: '/' },
+    { text: 'CLIENTS', path: '/' },
+    { text: 'ABOUT', path: '/' },
 ]
 
 
@@ -33,14 +33,14 @@ export const Navbar: FC = (props: Props) => {
                         <Container>
                             <Grid container justifyContent="space-between">
                                 <Grid item xs={2}>
-                                    <img src="/Logo.png" alt="Kill a Server" />
+                                    <img src="/Logo.png" alt="Kill a Server" width="170px" />
                                 </Grid>
                                 <Grid item xs={4}>
                                     <nav>
                                         <List sx={{ display: 'flex' }}>
                                             {navLinks.map(({ text, path }) => (
                                                 <ListItem key={text}>
-                                                    <MuiLink component={Link} href={path}>
+                                                    <MuiLink component={Link} href={path} fontSize={15} letterSpacing={3}>
                                                         {text}
                                                     </MuiLink>
                                                 </ListItem>
