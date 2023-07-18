@@ -1,8 +1,18 @@
+::-webkit-scrollbar {
+    background: #040612;
+    width: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #EF1679;
+}
+
 .bg-main {
     background: url('/Landing.jpg');
     background-size: 100%;
     min-height: 100vh;
-    background-position: center top;
+    background-position: top center;
+    background-repeat: no-repeat;
 }
 
 .navbar-blur {
@@ -21,4 +31,38 @@
     border-radius: 8px;
     background: linear-gradient(129deg, #1F8EBE 0%, #AE61ED 100%);
     box-shadow: 0px 17px 33px 0px rgba(255, 255, 255, 0.20);
+}
+
+.text-gradient {
+    background: linear-gradient(141deg, #1F8EBE 0%, #AE61ED 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+}
+
+.box-game {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    width: 270px;
+    min-height: 160px;
+    padding: 15px;
+    border: 1px solid hsla(0, 0%, 100%, .1);
+    border-radius: 10px;
+    background: var(--glass-1-fill-carey, linear-gradient(294deg, rgba(191, 191, 191, 0.06) 0%, rgba(0, 0, 0, 0.00) 100%), rgba(0, 0, 0, 0.14));
+    box-shadow: -8px 4px 5px 0px rgba(0, 0, 0, 0.24);
+    backdrop-filter: blur(26.5px);
+    transition: all .4s;
+}
+
+.box-game:hover {
+    border: 1px solid hsla(0, 0%, 100%, .3);
+    transition: all .4s;
+    transform: translateY(-5px);
+    box-shadow: 0 0 15px hsla(328, 100%, 50%, 0.3);
 }

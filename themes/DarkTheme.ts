@@ -8,7 +8,7 @@ export const DarkTheme = createTheme({
         }
     },
     typography: {
-        fontFamily: 'Orbitron',
+        fontFamily:'Roboto'
     },
     components: {
         MuiAppBar: {
@@ -26,7 +26,8 @@ export const DarkTheme = createTheme({
                 root: {
                     textDecoration: 'none',
                     color: 'white',
-                    fontWeight: 400
+                    fontWeight: 400,
+                    fontFamily:'Orbitron',
                 }
             }
         },
@@ -34,9 +35,10 @@ export const DarkTheme = createTheme({
             styleOverrides: {
                 root: {
                     fontWeight: 600,
+                    fontFamily:'Orbitron',
                     color: 'white',
-                    paddingLeft: 15,
-                    paddingRight: 15,
+                    paddingLeft: 20,
+                    paddingRight: 20,
                     borderRadius: 0,
                 },
                 outlined: {
@@ -53,7 +55,8 @@ export const DarkTheme = createTheme({
         MuiTypography: {
             styleOverrides: {
                 h3: {
-                    fontWeight: 600
+                    fontWeight: 600,
+                    fontFamily: 'Orbitron',
                 }
             }
         }

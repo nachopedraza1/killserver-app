@@ -1,13 +1,12 @@
 import { FC, ReactNode } from "react";
 
-import Grid from '@mui/material/Grid';
 import { Navbar } from "../ui";
-import Container from '@mui/material/Container'
+import { Container, Grid } from "@mui/material";
 
 
-export const MainLayout: FC<{ children: ReactNode }> = ({ children }) => {
+export const MainLayout: FC<{ children: ReactNode, bgClass?: string }> = ({ children, bgClass }) => {
     return (
-        <Grid className="bg-main">
+        <Grid className={bgClass}>
             <Navbar />
             <Container >
                 {children}
