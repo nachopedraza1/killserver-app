@@ -86,3 +86,59 @@
     width: 470px;
     height: 20px;
 }
+
+.team-card {
+    position: relative;
+    height: 400px;
+    background: url('/team-card.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
+    transition: all .4s;
+    border: 1px solid hsla(0, 0%, 100%, .1);
+}
+
+.team-card:hover {
+    transition: all .4s;
+    border: 1px solid hsla(0, 0%, 100%, .3);
+    transform: translateY(-5px);
+    box-shadow: 0 0 15px hsla(328, 100%, 50%, 0.3);
+}
+
+.team-card h6 {
+    font-family: 'Orbitron';
+    color: #EF1679;
+    font-weight: 600;
+    text-transform: uppercase;
+    position: absolute;
+    text-align: center;
+    bottom: 60px;
+    left: 0;
+    right: 0;
+    transition: all .4s;
+}
+
+.team-card p {
+    font-family: 'Orbitron';
+    color: #EF1679;
+    font-weight: 600;
+    text-transform: uppercase;
+    position: absolute;
+    text-align: center;
+    bottom: 0px;
+    left: 0;
+    right: 0;
+    transition: all .4s;
+    opacity: 0;
+}
+
+.team-card:hover p {
+    bottom: 40px;
+    opacity: 1; 
+}
+
+.team-card:hover h6 {
+    color: white;
+    transition: all .4s;
+}

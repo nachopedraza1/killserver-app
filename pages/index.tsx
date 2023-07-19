@@ -67,7 +67,25 @@ const HomePage = () => {
         </Grid>
       </Grid>
 
-    </MainLayout>
+      <Grid container justifyContent="center" alignItems="center" mt={5} gap={5}>
+        <Grid item xs={12} textAlign="center">
+          <Typography variant="h3" textTransform="uppercase" color="primary.main" mb={2}> our team </Typography>
+          <span className="line" ></span>
+        </Grid>
+        <Grid item xs={2.6} className="team-card">
+          <Typography variant="h6">Vladmir</Typography>
+          <Typography>DDOS Expert</Typography>
+        </Grid>
+        <Grid item xs={2.6} className="team-card">
+          <Typography variant="h6">Cracket</Typography>
+          <Typography>XSS Expert</Typography>
+        </Grid>
+        <Grid item xs={2.6} className="team-card">
+          <Typography variant="h6">Secret</Typography>
+          <Typography>SQLI  expert</Typography>
+        </Grid>
+      </Grid>
+    </MainLayout >
   )
 }
 
