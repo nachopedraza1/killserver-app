@@ -1,14 +1,21 @@
 import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
-import { ThemeProvider, CssBaseline } from '@mui/material'
+import { SessionProvider } from "next-auth/react"
 
+import { ThemeProvider, CssBaseline } from '@mui/material'
 import { DarkTheme } from '@/themes'
+
+import { AuthProvider } from '@/context'
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <ThemeProvider theme={DarkTheme}>
-      <CssBaseline />
-      <Component {...pageProps} />
-    </ThemeProvider>
+    <SessionProvider>
+      <AuthProvider>
+        <ThemeProvider theme={DarkTheme}>
+          <CssBaseline />
+          <Component {...pageProps} />
+        </ThemeProvider>
+      </AuthProvider>
+    </SessionProvider>
   )
 }

@@ -15,5 +15,5 @@ export const captureScroll = () => {
         window.addEventListener("scroll", handleScroll);
     }, []);
 
-    return navbarStyle
+    return { navbarStyle }
 };
