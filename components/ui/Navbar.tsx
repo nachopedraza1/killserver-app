@@ -17,7 +17,7 @@ const navLinks = [
 
 export const Navbar: FC = (props: Props) => {
 
-    const { navbarStyle, trigger } = useNavbar(props);
+    const { navbarStyle, trigger, asPath } = useNavbar(props);
 
     return (
         <Slide appear={false} direction="down" in={!trigger}>
@@ -40,9 +40,11 @@ export const Navbar: FC = (props: Props) => {
                                         ))}
                                     </List>
                                 </nav>
-                                <Button variant="contained" sx={{ ml: 2, px: 3 }}>
-                                    Login
-                                </Button>
+                                <Link href={`/auth/login?p=${asPath}`}>
+                                    <Button variant="contained" sx={{ ml: 2, px: 3 }}>
+                                        Login
+                                    </Button>
+                                </Link>
                             </Grid>
                         </Grid>
                     </Container>

@@ -7,7 +7,7 @@ import { Button, Grid, Typography } from "@mui/material";
 const DatabasePage: NextPage = () => {
 
     return (
-        <MainLayout bgClass='bg-main'>
+        <MainLayout title="Server List">
             <Grid container minHeight="100vh" justifyContent="center" alignItems="center" textAlign="center">
                 <Grid item xs={6}>
                     <Grid container direction="column" gap={2}>

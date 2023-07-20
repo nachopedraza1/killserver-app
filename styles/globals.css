@@ -1,3 +1,12 @@
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s, color 5000s ease-in-out 0s;
+    transition-delay: background-color 5000s, color 5000s;
+    box-shadow: #AE61ED;
+}
+
 ::-webkit-scrollbar {
     background: #040612;
     width: 3px;
@@ -7,12 +16,73 @@
     background: #EF1679;
 }
 
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.custom-link {
+    font-family: 'Roboto';
+    font-weight: 400;
+    font-size: 1rem;
+    color: white;
+    margin-left: 3px;
+}
+
+.fadeIn {
+    -webkit-animation-duration: 0.5s;
+    animation-duration: 0.5s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation-name: fadeIn;
+    animation-name: fadeIn;
+}
+
 .bg-main {
     background: url('/Landing.jpg');
     background-size: 100%;
     min-height: 100vh;
     background-position: top center;
     background-repeat: no-repeat;
+}
+
+.bg-auth {
+    background: url('/bg-auth.jpg');
+    background-size: cover;
+    background-position: center bottom;
+    min-height: 100vh;
+}
+
+
+.form-sign {
+    border-radius: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.20);
+    width: 430px;
+    padding: 60px 40px 30px 40px;
+    background: var(--glass-1-fill-carey, linear-gradient(294deg, rgba(191, 191, 191, 0.06) 0%, rgba(0, 0, 0, 0.00) 100%), rgba(0, 0, 0, 0.14));
+    box-shadow: -8px 4px 5px 0px rgba(0, 0, 0, 0.24);
+    backdrop-filter: blur(26.5px);
+}
+
+.form-sign h4 {
+    font-family: 'Orbitron';
+    font-weight: 600;
+    color: #EF1679;
 }
 
 .navbar-blur {
@@ -79,6 +149,18 @@
     margin: auto;
     width: 470px;
     height: 20px;
+}
+
+.line-short::after {
+    content: '';
+    display: block;
+    background: url('/line.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin: auto;
+    width: 100%;
+    height: 2vh;
 }
 
 .team-card {

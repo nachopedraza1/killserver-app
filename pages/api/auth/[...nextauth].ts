@@ -26,6 +26,12 @@ export const authOptions: NextAuthOptions = {
         })
     ],
 
+    session: {
+        maxAge: 2592000, /// 30d
+        strategy: 'jwt',
+        updateAge: 86400, // cada día
+    },
+
     pages: {
         signIn: '/auth/login',
         newUser: '/auth/register'

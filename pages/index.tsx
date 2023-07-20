@@ -6,9 +6,9 @@ import { Slide } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css'
 
 const HomePage = () => {
-  
+
   return (
-    <MainLayout bgClass='bg-main'>
+    <MainLayout title='Home'>
 
       <Grid container minHeight="100vh" justifyContent="center" alignItems="center">
         <Grid item xs={6} >

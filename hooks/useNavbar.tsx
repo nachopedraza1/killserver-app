@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import { captureScroll } from "@/helpers"
 import { useScrollTrigger } from "@mui/material";
 
@@ -9,6 +10,8 @@ export const useNavbar = (props: Props) => {
 
     const { navbarStyle } = captureScroll();
 
+    const { asPath } = useRouter();
+
     const { window } = props;
 
     const trigger = useScrollTrigger({
@@ -17,6 +20,7 @@ export const useNavbar = (props: Props) => {
 
     return {
         navbarStyle,
-        trigger
+        trigger,
+        asPath
     }
 }

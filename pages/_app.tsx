@@ -6,16 +6,19 @@ import { ThemeProvider, CssBaseline } from '@mui/material'
 import { DarkTheme } from '@/themes'
 
 import { AuthProvider } from '@/context'
+import { SnackbarProvider } from 'notistack'
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <SessionProvider>
-      <AuthProvider>
-        <ThemeProvider theme={DarkTheme}>
-          <CssBaseline />
-          <Component {...pageProps} />
-        </ThemeProvider>
-      </AuthProvider>
+      <SnackbarProvider>
+        <AuthProvider>
+          <ThemeProvider theme={DarkTheme}>
+            <CssBaseline />
+            <Component {...pageProps} />
+          </ThemeProvider>
+        </AuthProvider>
+      </SnackbarProvider>
     </SessionProvider>
   )
 }
