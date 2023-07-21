@@ -8,6 +8,10 @@ import { isEmail } from "@/utils";
 
 import { AuthLayout } from "@/components";
 import { Box, Grid, Typography, TextField, Button, Divider } from "@mui/material";
+import { useContext } from "react";
+import { AuthContext } from "@/context";
+import { signIn } from "next-auth/react";
+import { enqueueSnackbar } from "notistack";
 
 type FormData = {
     name: string,
@@ -19,10 +23,26 @@ const RegisterPage: NextPage = () => {
 
     const { query } = useRouter();
 
+    const { registerUser } = useContext(AuthContext);
+
     const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
 
     const onRegister = async ({ name, email, password }: FormData) => {
-        console.log(name, email, password);
+
+        const { hasError, message } = await registerUser(name, email, password);
+
+        if (hasError) {
+            return enqueueSnackbar(`${message}`, {
+                variant: 'error',
+                autoHideDuration: 1500,
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right'
+                }
+            })
+        }
+
+        await signIn('credentials', { email, password });
     }
 
     return (

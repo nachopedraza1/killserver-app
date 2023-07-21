@@ -11,14 +11,14 @@ import { SnackbarProvider } from 'notistack'
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <SessionProvider>
-      <SnackbarProvider>
-        <AuthProvider>
+      <AuthProvider>
+        <SnackbarProvider>
           <ThemeProvider theme={DarkTheme}>
             <CssBaseline />
             <Component {...pageProps} />
           </ThemeProvider>
-        </AuthProvider>
-      </SnackbarProvider>
+        </SnackbarProvider>
+      </AuthProvider>
     </SessionProvider>
   )
 }

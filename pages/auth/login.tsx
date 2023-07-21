@@ -4,7 +4,7 @@ import { GetServerSideProps, NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
-import { getSession, signIn } from "next-auth/react";
+import { getSession, signIn, useSession } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import { useSnackbar } from 'notistack';
 
@@ -115,6 +115,20 @@ const LoginPage: NextPage = () => {
             </form>
         </AuthLayout>
     )
+}
+
+
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+
+    const session = await getSession({ req });
+
+    console.log(session);
+
+    return {
+        props: {
+
+        }
+    }
 }
 
 export default LoginPage;
