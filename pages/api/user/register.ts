@@ -37,7 +37,7 @@ const registerUser = async (req: NextApiRequest, res: NextApiResponse<Data>) => 
 
     if (isExist) {
         await db.disconnect();
-        return res.status(400).json({ message: 'email already exists' })
+        return res.status(400).json({ message: 'Email already exists' })
     }
 
     const user = new User({ name, email, password: bcrypt.hashSync(password) })

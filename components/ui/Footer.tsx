@@ -1,4 +1,7 @@
 import { FC } from "react";
+
+import { useSession } from "next-auth/react";
+
 import { AppBar, Button, Container, Grid, Link, List, ListItem, Toolbar, Link as MuiLink } from "@mui/material";
 
 const navLinks = [
@@ -9,6 +12,9 @@ const navLinks = [
 ]
 
 export const Footer: FC = () => {
+
+    const { status } = useSession();
+
     return (
         <footer>
             <AppBar position="relative">
@@ -30,17 +36,24 @@ export const Footer: FC = () => {
                                         ))}
                                     </List>
                                 </nav>
-                                <Button variant="contained" sx={{ ml: 2, px: 3 }}>
-                                    Login
-                                </Button>
-                                <Button variant="outlined" sx={{ ml: 2, px: 3 }}>
-                                    Register
-                                </Button>
+
+                                {
+                                    status == 'unauthenticated'
+                                    &&
+                                    <>
+                                        < Button variant="contained" sx={{ ml: 2, px: 3 }}>
+                                            Login
+                                        </Button>
+                                        <Button variant="outlined" sx={{ ml: 2, px: 3 }}>
+                                            Register
+                                        </Button>
+                                    </>
+                                }
                             </Grid>
                         </Grid>
                     </Container>
                 </Toolbar>
             </AppBar>
-        </footer>
+        </footer >
     )
 }

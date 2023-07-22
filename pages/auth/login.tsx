@@ -4,11 +4,10 @@ import { GetServerSideProps, NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
-import { getSession, signIn, useSession } from "next-auth/react";
+import { getSession, signIn } from "next-auth/react";
 import { useForm } from "react-hook-form";
-import { useSnackbar } from 'notistack';
 
-import { isEmail } from "@/utils";
+import { alertSnack, isEmail } from "@/utils";
 
 import { Box, Button, Checkbox, Divider, FormControlLabel, FormGroup, Grid, TextField, Typography } from "@mui/material";
 import { AuthLayout } from "@/components";
@@ -21,26 +20,20 @@ type FormData = {
 const LoginPage: NextPage = () => {
 
     const { push, query } = useRouter();
-    const { enqueueSnackbar } = useSnackbar();
 
     const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
+    const [submitted, setSubmitted] = useState<boolean>(false);
 
     const onLogin = async ({ email, password }: FormData) => {
+        setSubmitted(true);
         const resp = await signIn('credentials', {
             email,
             password,
             redirect: false,
         });
-
+        setSubmitted(false);
         if (resp?.error) {
-            enqueueSnackbar('Credenciales Invalidas', {
-                variant: 'error',
-                autoHideDuration: 1500,
-                anchorOrigin: {
-                    vertical: 'top',
-                    horizontal: 'right'
-                }
-            })
+            alertSnack('Invalid credentials', 'error');
         } else {
             push('/');
         }
@@ -80,7 +73,7 @@ const LoginPage: NextPage = () => {
                             helperText={errors.password?.message}
                         />
 
-                        <Button variant="contained" type="submit">
+                        <Button variant="contained" type="submit" disabled={submitted}>
                             Login
                         </Button>
 
@@ -118,11 +111,20 @@ const LoginPage: NextPage = () => {
 }
 
 
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+export const getServerSideProps: GetServerSideProps = async ({ req, query }) => {
 
     const session = await getSession({ req });
 
-    console.log(session);
+    const { p = '/' } = query;
+
+    if (session) {
+        return {
+            redirect: {
+                destination: p?.toString(),
+                permanent: false
+            }
+        }
+    }
 
     return {
         props: {

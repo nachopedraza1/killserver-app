@@ -1,17 +1,17 @@
-import { NextPage } from "next"
-import Link from "next/link";
-import Image from "next/image";
+import { useContext, useState } from 'react';
+import { GetServerSideProps, NextPage } from "next"
 import { useRouter } from "next/router";
+import Image from "next/image";
+import Link from "next/link";
 
+import { getSession, signIn } from "next-auth/react";
 import { useForm } from "react-hook-form";
-import { isEmail } from "@/utils";
 
-import { AuthLayout } from "@/components";
-import { Box, Grid, Typography, TextField, Button, Divider } from "@mui/material";
-import { useContext } from "react";
+import { alertSnack, isEmail } from "@/utils";
 import { AuthContext } from "@/context";
-import { signIn } from "next-auth/react";
-import { enqueueSnackbar } from "notistack";
+
+import { Box, Grid, Typography, TextField, Button, Divider } from "@mui/material";
+import { AuthLayout } from "@/components";
 
 type FormData = {
     name: string,
@@ -26,20 +26,16 @@ const RegisterPage: NextPage = () => {
     const { registerUser } = useContext(AuthContext);
 
     const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
+    const [submitted, setSubmitted] = useState<boolean>(false);
 
     const onRegister = async ({ name, email, password }: FormData) => {
 
+        setSubmitted(true);
         const { hasError, message } = await registerUser(name, email, password);
+        setSubmitted(false);
 
         if (hasError) {
-            return enqueueSnackbar(`${message}`, {
-                variant: 'error',
-                autoHideDuration: 1500,
-                anchorOrigin: {
-                    vertical: 'top',
-                    horizontal: 'right'
-                }
-            })
+            return alertSnack(message!, 'error')
         }
 
         await signIn('credentials', { email, password });
@@ -92,7 +88,7 @@ const RegisterPage: NextPage = () => {
                             helperText={errors.password?.message}
                         />
 
-                        <Button variant="contained" type="submit">
+                        <Button variant="contained" type="submit" disabled={submitted}>
                             Register
                         </Button>
 
@@ -122,6 +118,29 @@ const RegisterPage: NextPage = () => {
             </form>
         </AuthLayout >
     )
+}
+
+
+export const getServerSideProps: GetServerSideProps = async ({ req, query }) => {
+
+    const session = await getSession({ req });
+
+    const { p = '/' } = query;
+
+    if (session) {
+        return {
+            redirect: {
+                destination: p.toString(),
+                permanent: false
+            }
+        }
+    }
+
+    return {
+        props: {
+
+        }
+    }
 }
 
 export default RegisterPage;

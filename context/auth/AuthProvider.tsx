@@ -5,13 +5,13 @@ import { isAxiosError } from 'axios';
 import { IUser } from '@/interfaces';
 import { killApi } from '@/api';
 import { useSession } from 'next-auth/react';
+import { alertSnack } from '@/utils';
 
 
 export interface AuthState {
     authenticated: boolean;
     user?: IUser;
 }
-
 
 const Auth_INITIAL_STATE: AuthState = {
     authenticated: false,
@@ -22,11 +22,18 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
     const [state, dispatch] = useReducer(authReducer, Auth_INITIAL_STATE);
 
     const { data, status } = useSession();
+
     useEffect(() => {
         if (status === 'authenticated') {
             dispatch({ type: '[Auth] - Login', payload: data.user! as IUser })
         }
     }, [data, status])
+
+    useEffect(() => {
+        if (status === 'authenticated') {
+            alertSnack(`Welcome ${data.user?.name!}`, 'success');
+        }
+    }, [status])
 
 
     const registerUser = async (name: string, email: string, password: string) => {

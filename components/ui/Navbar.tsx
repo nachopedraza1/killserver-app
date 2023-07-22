@@ -1,6 +1,8 @@
 import { FC } from "react";
 import Link from "next/link";
 
+import { useSession } from "next-auth/react";
+
 import { Slide, AppBar, Toolbar, List, Container, ListItem, Grid, Link as MuiLink, Button } from '@mui/material';
 import { useNavbar } from "@/hooks";
 
@@ -18,6 +20,8 @@ const navLinks = [
 export const Navbar: FC = (props: Props) => {
 
     const { navbarStyle, trigger, asPath } = useNavbar(props);
+
+    const { status } = useSession();
 
     return (
         <Slide appear={false} direction="down" in={!trigger}>
@@ -40,11 +44,15 @@ export const Navbar: FC = (props: Props) => {
                                         ))}
                                     </List>
                                 </nav>
-                                <Link href={`/auth/login?p=${asPath}`}>
-                                    <Button variant="contained" sx={{ ml: 2, px: 3 }}>
-                                        Login
-                                    </Button>
-                                </Link>
+
+                                {status == 'unauthenticated'
+                                    &&
+                                    <Link href={`/auth/login?p=${asPath}`}>
+                                        <Button variant="contained" sx={{ ml: 2, px: 3 }}>
+                                            Login
+                                        </Button>
+                                    </Link>
+                                }
                             </Grid>
                         </Grid>
                     </Container>
