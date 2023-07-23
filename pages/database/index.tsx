@@ -1,10 +1,14 @@
+import { useContext } from "react";
 import { NextPage } from "next";
 
-import { MainLayout } from "@/components";
+import { UiContext } from "@/context/ui";
+import { AddServer, MainLayout } from "@/components";
 
 import { Button, Grid, Typography } from "@mui/material";
 
 const DatabasePage: NextPage = () => {
+
+    const { toggleModal } = useContext(UiContext);
 
     return (
         <MainLayout title="Server List">
@@ -15,12 +19,14 @@ const DatabasePage: NextPage = () => {
                         <span className="line"></span>
                         <Typography variant="h6" mb={2}>if you do not find what you are looking for in our database, you can send a request for our experts to analyze the desired server and add it to our database.</Typography>
                     </Grid>
-                    <Button variant='outlined' sx={{ mr: 2 }}>
+                    <Button variant='outlined' sx={{ mr: 2 }} onClick={toggleModal}>
                         Add server
                     </Button>
                     <Button variant='contained' >
                         contact us
                     </Button>
+
+                    <AddServer />
                 </Grid>
             </Grid>
 

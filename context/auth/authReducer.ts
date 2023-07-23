@@ -4,6 +4,7 @@ import { AuthState } from './';
 
 type AuthActionType =
     | { type: '[Auth] - Login', payload: IUser }
+    | { type: '[Auth] - Logout' }
 
 
 export const authReducer = (state: AuthState, action: AuthActionType): AuthState => {
@@ -14,6 +15,13 @@ export const authReducer = (state: AuthState, action: AuthActionType): AuthState
                 ...state,
                 authenticated: true,
                 user: action.payload
+            }
+
+        case '[Auth] - Logout':
+            return {
+                ...state,
+                authenticated: false,
+                user: undefined
             }
 
         default:

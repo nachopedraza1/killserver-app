@@ -1,15 +1,16 @@
-import { IGameServer } from '@/interfaces';
-import { GameServer } from '@/models';
 import type { NextApiRequest, NextApiResponse } from 'next';
+
+import { hostings, games, attacks } from '@/utils';
+import { GameServer } from '@/models';
 import { db } from '@/db';
+
+import { IGameServer } from '@/interfaces';
 
 type Data =
     | { message: string }
     | IGameServer[]
     | IGameServer
 
-const servers = ['Mu Online', 'Cabal Online', 'Lineage 2', 'World of Warcraft', 'Aion Online'];
-const attacks = ['Cross-site request', 'Cross-site scripting', 'SQLI', 'DDOS', 'Loggin Buffer'];
 
 
 export default function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
@@ -28,17 +29,28 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<Data>)
 
 const addServer = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 
-    const { name = '', urlWebsite = '', vulnerabilities = '', game = '' } = req.body;
+    const { name = '', urlWebsite = '', vulnerabilities = [], game = '', host = '' } = req.body;
 
     if (name.length <= 2) return res.status(400).json({ message: 'Bad request' })
+
     if (urlWebsite.length <= 5) return res.status(400).json({ message: 'Bad request' })
 
-    if (vulnerabilities.length <= 3 || !attacks.includes(`${vulnerabilities}`)) {
+    /* if (!attacks.includes(vulnerabilities)) {
         return res.status(400).json({ message: ' Invalid vulnerabilities' })
+    } */
+
+    if (vulnerabilities.length >= 1) {
+        vulnerabilities.forEach((vuln: string) => {
+            if (!attacks.includes(vuln)) return res.status(400).json({ message: ' Invalid vulnerabilities' })
+        })
     }
 
-    if (game.length <= 2 || !servers.includes(`${game}`)) {
-        return res.status(400).json({ message: 'Invalid servertype' })
+    if (host.length <= 2 || !hostings.includes(`${host}`)) {
+        return res.status(400).json({ message: ' Invalid hosting' })
+    }
+
+    if (game.length <= 2 || !games.includes(`${game}`)) {
+        return res.status(400).json({ message: 'Invalid game' })
     }
 
     await db.connect();
@@ -50,20 +62,21 @@ const addServer = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
         return res.status(400).json({ message: "this server's data is already in our database" })
     }
 
-    const gameServer = new GameServer({ name, game, urlWebsite, vulnerabilities })
+    const gameServer = new GameServer({ name, game, urlWebsite, host, vulnerabilities })
     await gameServer.save();
     await db.disconnect();
 
     return res.status(200).json({
         name,
         game,
+        host,
         urlWebsite,
         vulnerabilities,
     })
 }
 
 const getServers = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
-    
+
     await db.connect();
     const servers = await GameServer.find().lean();
     await db.disconnect();

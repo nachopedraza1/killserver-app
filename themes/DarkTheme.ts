@@ -57,6 +57,11 @@ export const DarkTheme = createTheme({
                 h3: {
                     fontWeight: 600,
                     fontFamily: 'Orbitron',
+                },
+                h5: {
+                    fontWeight: 600,
+                    fontFamily: 'Orbitron',
+                    color: '#EF1679'
                 }
             }
         },

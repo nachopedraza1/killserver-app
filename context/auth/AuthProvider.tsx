@@ -1,12 +1,13 @@
 import { FC, ReactNode, useEffect, useReducer } from 'react';
 import { AuthContext, authReducer } from './';
+
+import { signOut, useSession } from 'next-auth/react';
 import { isAxiosError } from 'axios';
 
-import { IUser } from '@/interfaces';
-import { killApi } from '@/api';
-import { useSession } from 'next-auth/react';
 import { alertSnack } from '@/utils';
+import { killApi } from '@/api';
 
+import { IUser } from '@/interfaces';
 
 export interface AuthState {
     authenticated: boolean;
@@ -57,9 +58,16 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
         }
     }
 
+    const logoutUser = () => {
+        dispatch({ type: '[Auth] - Logout' });
+        signOut();
+    }
+
     return (
         <AuthContext.Provider value={{
             ...state,
+
+            logoutUser,
             registerUser
         }}>
             {children}

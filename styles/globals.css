@@ -68,6 +68,26 @@ input:-webkit-autofill:active {
     min-height: 100vh;
 }
 
+.bg-modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    max-width: 500px;
+    background-color: #0f0f0f;
+    padding: 130px 20px 20px 20px;
+    border: 1px solid hsla(0, 0%, 100%, .1);
+    box-shadow: -8px 4px 5px 0px rgba(0, 0, 0, 0.24);
+}
+
+.img-z {
+    position: absolute;
+    top: -203px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+}
 
 .form-sign {
     border-radius: 20px;

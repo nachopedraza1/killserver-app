@@ -21,8 +21,9 @@ export const AuthLayout: FC<Props> = ({ children, title }) => {
                     <Grid container minHeight="100vh">
                         <Grid item xs={6} mt={2}>
                             <img src="/Logo.png" alt="Kill a Server" width="170px" />
+                            <img src="/ilust-home5.png" width="120%" />
                         </Grid>
-                        <Grid item xs={6} display="flex" alignItems="center" justifyContent="center">
+                        <Grid item xs={6} display="flex" alignItems="center" justifyContent="end">
                             {children}
                         </Grid>
                     </Grid>

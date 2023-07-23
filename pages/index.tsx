@@ -1,9 +1,6 @@
 import Image from 'next/image';
-import { MainLayout } from '@/components';
+import { MainLayout, SliderGames } from '@/components';
 import { Button, Grid, Typography } from '@mui/material';
-
-import { Slide } from 'react-slideshow-image';
-import 'react-slideshow-image/dist/styles.css'
 
 const HomePage = () => {
 
@@ -29,27 +26,7 @@ const HomePage = () => {
       </Grid>
 
       <Grid container justifyContent="center" alignItems="center" className="bg-home">
-        <Grid item xs={12} textAlign="center">
-          <Typography variant="h3" textTransform="uppercase" color="primary.main" mb={1}> we work on </Typography>
-          <span className='line'></span>
-          <Slide slidesToShow={4} infinite>
-            <Grid className="box-game each-slide-effect">
-              <img src="/wow.png" width="100%" />
-            </Grid>
-            <Grid className="box-game each-slide-effect">
-              <img src="/muonline.png" width="100%" />
-            </Grid>
-            <Grid className="box-game each-slide-effect">
-              <img src="/aion.png" width="100%" />
-            </Grid>
-            <Grid className="box-game each-slide-effect">
-              <img src="/cabal.png" width="100%" />
-            </Grid>
-            <Grid className="box-game each-slide-effect">
-              <img src="/lineage2.png" width="100%" />
-            </Grid>
-          </Slide>
-        </Grid>
+        <SliderGames />
       </Grid>
 
       <Grid container justifyContent="center" alignItems="center" mt={5}>

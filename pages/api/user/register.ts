@@ -40,7 +40,11 @@ const registerUser = async (req: NextApiRequest, res: NextApiResponse<Data>) => 
         return res.status(400).json({ message: 'Email already exists' })
     }
 
-    const user = new User({ name, email, password: bcrypt.hashSync(password) })
+    const user = new User({
+        name: name.toLowerCase(),
+        email: email.toLowerCase(),
+        password: bcrypt.hashSync(password)
+    })
 
     try {
         await user.save({ validateBeforeSave: true });

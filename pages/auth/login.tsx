@@ -19,7 +19,7 @@ type FormData = {
 
 const LoginPage: NextPage = () => {
 
-    const { push, query } = useRouter();
+    const { reload, query } = useRouter();
 
     const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
     const [submitted, setSubmitted] = useState<boolean>(false);
@@ -35,7 +35,7 @@ const LoginPage: NextPage = () => {
         if (resp?.error) {
             alertSnack('Invalid credentials', 'error');
         } else {
-            push('/');
+            reload()
         }
     }
 

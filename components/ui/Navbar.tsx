@@ -5,6 +5,7 @@ import { useSession } from "next-auth/react";
 
 import { Slide, AppBar, Toolbar, List, Container, ListItem, Grid, Link as MuiLink, Button } from '@mui/material';
 import { useNavbar } from "@/hooks";
+import { UserButtons } from "./UserButtons";
 
 interface Props {
     window?: () => Window;
@@ -53,6 +54,9 @@ export const Navbar: FC = (props: Props) => {
                                         </Button>
                                     </Link>
                                 }
+
+                                {status == 'authenticated' && <UserButtons />}
+
                             </Grid>
                         </Grid>
                     </Container>
