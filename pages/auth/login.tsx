@@ -1,13 +1,15 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useRouter } from "next/router";
 import { GetServerSideProps, NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
+import ReCAPTCHA from 'react-google-recaptcha';
 import { getSession, signIn } from "next-auth/react";
 import { useForm } from "react-hook-form";
 
 import { alertSnack, isEmail } from "@/utils";
+import { AuthContext } from '@/context';
 
 import { Box, Button, Checkbox, Divider, FormControlLabel, FormGroup, Grid, TextField, Typography } from "@mui/material";
 import { AuthLayout } from "@/components";
@@ -19,24 +21,31 @@ type FormData = {
 
 const LoginPage: NextPage = () => {
 
+    const { handleRecaptcha, recaptcha } = useContext(AuthContext);
+
     const { reload, query } = useRouter();
 
     const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
     const [submitted, setSubmitted] = useState<boolean>(false);
 
+
     const onLogin = async ({ email, password }: FormData) => {
-        setSubmitted(true);
-        const resp = await signIn('credentials', {
-            email,
-            password,
-            redirect: false,
-        });
-        setSubmitted(false);
-        if (resp?.error) {
-            alertSnack('Invalid credentials', 'error');
-        } else {
-            reload()
+        if (recaptcha) {
+            setSubmitted(true);
+            const resp = await signIn('credentials', {
+                email,
+                password,
+                redirect: false,
+            });
+            setSubmitted(false);
+            if (resp?.error) {
+                alertSnack('Invalid credentials', 'error');
+            } else {
+                reload();
+            }
+            return;
         }
+        console.log("error");
     }
 
     return (
@@ -72,6 +81,9 @@ const LoginPage: NextPage = () => {
                             error={!!errors.password}
                             helperText={errors.password?.message}
                         />
+
+
+                        <ReCAPTCHA sitekey={process.env.NEXT_PUBLIC_RECAPTCHA!} onChange={handleRecaptcha} />
 
                         <Button variant="contained" type="submit" disabled={submitted}>
                             Login

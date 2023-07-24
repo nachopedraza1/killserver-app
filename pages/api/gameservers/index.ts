@@ -35,10 +35,6 @@ const addServer = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 
     if (urlWebsite.length <= 5) return res.status(400).json({ message: 'Bad request' })
 
-    /* if (!attacks.includes(vulnerabilities)) {
-        return res.status(400).json({ message: ' Invalid vulnerabilities' })
-    } */
-
     if (vulnerabilities.length >= 1) {
         vulnerabilities.forEach((vuln: string) => {
             if (!attacks.includes(vuln)) return res.status(400).json({ message: ' Invalid vulnerabilities' })

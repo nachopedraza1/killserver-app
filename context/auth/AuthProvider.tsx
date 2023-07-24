@@ -2,7 +2,7 @@ import { FC, ReactNode, useEffect, useReducer } from 'react';
 import { AuthContext, authReducer } from './';
 
 import { signOut, useSession } from 'next-auth/react';
-import { isAxiosError } from 'axios';
+import axios, { isAxiosError } from 'axios';
 
 import { alertSnack } from '@/utils';
 import { killApi } from '@/api';
@@ -11,11 +11,13 @@ import { IUser } from '@/interfaces';
 
 export interface AuthState {
     authenticated: boolean;
+    recaptcha: boolean;
     user?: IUser;
 }
 
 const Auth_INITIAL_STATE: AuthState = {
     authenticated: false,
+    recaptcha: false,
 }
 
 export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
@@ -63,12 +65,24 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
         signOut();
     }
 
+    const handleRecaptcha = async (token: string | null) => {
+        try {
+            await axios.post('/api/recaptcha', { token });
+            dispatch({ type: '[Auth] - Recaptcha', payload: true })
+        } catch (error) {
+            dispatch({ type: '[Auth] - Recaptcha', payload: false })
+        }
+    }
+
+
+
     return (
         <AuthContext.Provider value={{
             ...state,
 
             logoutUser,
-            registerUser
+            registerUser,
+            handleRecaptcha
         }}>
             {children}
         </AuthContext.Provider>
