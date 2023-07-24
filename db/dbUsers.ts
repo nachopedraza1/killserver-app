@@ -1,7 +1,7 @@
-import { User } from '@/models';
 import bcrypt from 'bcryptjs';
-import { db } from "./"
+import { User } from '@/models';
 import { IUser } from '@/interfaces';
+import { db } from "./"
 
 export const checkUserEmailPassword = async (email: string, password: string): Promise<IUser | null> => {
 
@@ -21,7 +21,6 @@ export const checkUserEmailPassword = async (email: string, password: string): P
     const { _id, name } = user;
 
     return { _id, name, email }
-
 }
 
 

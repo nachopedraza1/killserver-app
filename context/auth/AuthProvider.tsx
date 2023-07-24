@@ -65,24 +65,12 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
         signOut();
     }
 
-    const handleRecaptcha = async (token: string | null) => {
-        try {
-            await axios.post('/api/recaptcha', { token });
-            dispatch({ type: '[Auth] - Recaptcha', payload: true })
-        } catch (error) {
-            dispatch({ type: '[Auth] - Recaptcha', payload: false })
-        }
-    }
-
-
-
     return (
         <AuthContext.Provider value={{
             ...state,
 
             logoutUser,
-            registerUser,
-            handleRecaptcha
+            registerUser
         }}>
             {children}
         </AuthContext.Provider>

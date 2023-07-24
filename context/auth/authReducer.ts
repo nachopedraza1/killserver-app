@@ -4,7 +4,6 @@ import { AuthState } from './';
 
 type AuthActionType =
     | { type: '[Auth] - Login', payload: IUser }
-    | { type: '[Auth] - Recaptcha', payload: boolean }
     | { type: '[Auth] - Logout' }
 
 
@@ -16,12 +15,6 @@ export const authReducer = (state: AuthState, action: AuthActionType): AuthState
                 ...state,
                 authenticated: true,
                 user: action.payload
-            }
-
-        case '[Auth] - Recaptcha':
-            return {
-                ...state,
-                recaptcha: action.payload
             }
 
         case '[Auth] - Logout':
