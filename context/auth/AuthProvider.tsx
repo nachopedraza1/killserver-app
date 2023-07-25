@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { AuthContext, authReducer } from './';
 
 import { signIn, signOut, useSession } from 'next-auth/react';
-import axios, { isAxiosError } from 'axios';
+import { isAxiosError } from 'axios';
 
 import { alertSnack } from '@/utils';
 import { killApi } from '@/api';
@@ -42,7 +42,7 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
 
     const loginUser = async (email: string, password: string) => {
         try {
-            await axios.post('/api/recaptcha');
+            await killApi.post('/recaptcha');
             const resp = await signIn('credentials', {
                 email,
                 password,
@@ -62,22 +62,19 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
 
     const registerUser = async (name: string, email: string, password: string) => {
         try {
+            await killApi.post('/recaptcha')
+        } catch (error) {
+            return alertSnack('Select captcha.', 'warning');
+        }
+
+        try {
             const { data } = await killApi.post('/user/register', { name, email, password })
             dispatch({ type: '[Auth] - Login', payload: data.user });
-            return {
-                hasError: false
-            }
+            await signIn('credentials', { email, password });
         } catch (error) {
             if (isAxiosError(error)) {
-                return {
-                    hasError: true,
-                    message: error.response?.data.message
-                }
+                return alertSnack(error.response?.data.message, 'error')
             }
-        }
-        return {
-            hasError: true,
-            message: 'Something went wrong, please try again later.'
         }
     }
 

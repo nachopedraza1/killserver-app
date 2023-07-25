@@ -19,6 +19,7 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
                     }
                 });
             };
+            return NextResponse.next();
 
         default:
             return new Response(JSON.stringify({ message: 'Unauthorized' }), {

@@ -1,11 +1,17 @@
-import { FC, useContext } from "react";
+import { FC, useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 
+import { useSession } from "next-auth/react";
+
 import { UiContext } from "@/context/ui";
-import { hostings, games } from "@/utils";
+import { hostings, games, alertSnack } from "@/utils";
+import { killApi } from "@/api";
 
 import { Modal, Backdrop, Box, Fade, TextField, Typography, Grid, MenuItem, Button } from "@mui/material";
 import { Games, Hostings } from "@/interfaces";
+import { isAxiosError } from "axios";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 interface FormData {
     name: string,
@@ -16,12 +22,29 @@ interface FormData {
 
 export const AddServer: FC = () => {
 
+    const { query } = useRouter();
+
+    const { data } = useSession();
+
     const { openServerModal, toggleModal } = useContext(UiContext);
+
+    const [submitted, setSubmitted] = useState<boolean>(false)
 
     const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
 
-    const onSubmit = (data: FormData) => {
-        console.log(data);
+    const onSubmit = async ({ game, host, name, urlWebsite }: FormData) => {
+        try {
+            setSubmitted(true);
+            await killApi.post('/gameservers', { game, host, name, urlWebsite });
+            setSubmitted(false);
+            alertSnack('Server successfully sent', 'success')
+            toggleModal();
+        } catch (error) {
+            if (isAxiosError(error)) {
+                alertSnack(error.response?.data.message, 'error')
+            }
+            setSubmitted(false);
+        }
     }
 
     return (
@@ -56,7 +79,7 @@ export const AddServer: FC = () => {
                                         {...register('name', {
                                             required: 'Required',
                                             minLength: { value: 2, message: 'minimum 2 characters' },
-                                            maxLength: { value: 8, message: 'maximum 8 characters' },
+                                            maxLength: { value: 15, message: 'maximum 15 characters' },
                                         })}
                                     />
                                     <TextField
@@ -112,11 +135,20 @@ export const AddServer: FC = () => {
                                     </TextField>
 
 
-                                    <Button type="submit" variant="contained" fullWidth>
-                                        submit
+                                    <Button type="submit" disabled={!data?.user || submitted} variant="contained" fullWidth>
+                                        {!data?.user ? 'not authenticated' : 'submit'}
                                     </Button>
+
                                 </Grid>
                             </form>
+
+
+                            <Typography textAlign="center" mt={2} display={data?.user ? "none" : "block"}>
+                                Already have an account?
+                                <Link href={query.p ? `/auth/register?p=${query.p}` : '/auth/register'} className="custom-link" >
+                                    Sign in
+                                </Link>
+                            </Typography>
 
                         </Box>
                     </Box>

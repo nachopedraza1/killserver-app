@@ -31,9 +31,9 @@ const addServer = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 
     const { name = '', urlWebsite = '', vulnerabilities = [], game = '', host = '' } = req.body;
 
-    if (name.length <= 2) return res.status(400).json({ message: 'Bad request' })
+    if (name.length <= 2 || name.length > 15) return res.status(400).json({ message: 'Bad request' })
 
-    if (urlWebsite.length <= 5) return res.status(400).json({ message: 'Bad request' })
+    if (urlWebsite.length <= 5 || urlWebsite.length > 36) return res.status(400).json({ message: 'Bad request' })
 
     if (vulnerabilities.length >= 1) {
         vulnerabilities.forEach((vuln: string) => {
@@ -55,7 +55,7 @@ const addServer = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 
     if (isExist.length >= 1) {
         await db.disconnect();
-        return res.status(400).json({ message: "this server's data is already in our database" })
+        return res.status(400).json({ message: "This server's data is already in our database" })
     }
 
     const gameServer = new GameServer({ name, game, urlWebsite, host, vulnerabilities })

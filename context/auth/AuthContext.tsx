@@ -6,7 +6,7 @@ interface ContextProps {
     authenticated: boolean;
     user?: IUser;
 
-    registerUser: (name: string, email: string, password: string) => Promise<{ hasError: boolean; message?: undefined }>
+    registerUser: (name: string, email: string, password: string) => Promise<void>
     loginUser: (email: string, password: string) => Promise<void>
     logoutUser: () => void
 }

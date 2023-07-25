@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 import { GetServerSideProps, NextPage } from "next"
 import { useRouter } from "next/router";
 import Image from "next/image";
@@ -11,7 +11,8 @@ import { alertSnack, isEmail } from "@/utils";
 import { AuthContext } from "@/context";
 
 import { Box, Grid, Typography, TextField, Button, Divider } from "@mui/material";
-import { AuthLayout } from "@/components";
+import { AuthLayout, ReCaptcha } from "@/components";
+import ReCAPTCHA from 'react-google-recaptcha';
 
 type FormData = {
     name: string,
@@ -21,6 +22,8 @@ type FormData = {
 
 const RegisterPage: NextPage = () => {
 
+    const recaptchaRef = useRef<ReCAPTCHA>(null);
+
     const { query } = useRouter();
 
     const { registerUser } = useContext(AuthContext);
@@ -29,16 +32,10 @@ const RegisterPage: NextPage = () => {
     const [submitted, setSubmitted] = useState<boolean>(false);
 
     const onRegister = async ({ name, email, password }: FormData) => {
-
         setSubmitted(true);
-        const { hasError, message } = await registerUser(name, email, password);
+        await registerUser(name, email, password);
         setSubmitted(false);
-
-        if (hasError) {
-            return alertSnack(message!, 'error')
-        }
-
-        await signIn('credentials', { email, password });
+        recaptchaRef.current?.reset();
     }
 
     return (
@@ -87,6 +84,8 @@ const RegisterPage: NextPage = () => {
                             error={!!errors.password}
                             helperText={errors.password?.message}
                         />
+
+                        <ReCaptcha ref={recaptchaRef} />
 
                         <Button variant="contained" type="submit" disabled={submitted}>
                             Register
