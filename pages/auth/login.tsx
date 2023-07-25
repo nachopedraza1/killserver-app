@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 import { useForm } from "react-hook-form";
 
 import { useRouter } from "next/router";
@@ -6,59 +6,37 @@ import { GetServerSideProps, NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
-import Cookies from 'js-cookie';
-import { getSession, signIn } from "next-auth/react";
+import { getSession } from "next-auth/react";
 import ReCAPTCHA from 'react-google-recaptcha';
 
-import { alertSnack, isEmail } from "@/utils";
+import { isEmail } from "@/utils";
+import { AuthContext } from '@/context';
 
-import { Box, Button, Checkbox, Divider, FormControlLabel, FormGroup, Grid, TextField, Typography } from "@mui/material";
-import { AuthLayout } from "@/components";
-import axios from 'axios';
+import { Box, Button, Divider, Grid, TextField, Typography } from "@mui/material";
+import { AuthLayout, ReCaptcha } from "@/components";
 
 type FormData = {
     email: string;
     password: string;
-    tokenRecaptcha: string,
 };
 
 const LoginPage: NextPage = () => {
 
+    const recaptchaRef = useRef<ReCAPTCHA>(null);
 
-    const { reload, query } = useRouter();
+    const { query } = useRouter();
+
+    const { loginUser } = useContext(AuthContext);
 
     const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
 
     const [submitted, setSubmitted] = useState<boolean>(false);
-    const [recaptcha, setRecaptcha] = useState<boolean>(false);
 
     const onLogin = async ({ email, password }: FormData) => {
-        if (recaptcha) {
-            setSubmitted(true);
-            const resp = await signIn('credentials', {
-                email,
-                password,
-                redirect: false,
-            });
-            setSubmitted(false);
-            if (resp?.error) {
-                alertSnack('Invalid credentials', 'error');
-            } else {
-                reload();
-            }
-            return;
-        }
-        alertSnack('Select captcha.', 'warning');
-    }
-
-    const handleRecaptcha = async (token: string | null) => {
-        Cookies.set('tokenCaptcha', token || '')
-        try {
-            await axios.post('/api/recaptcha');
-            setRecaptcha(true)
-        } catch (error) {
-            setRecaptcha(false)
-        }
+        setSubmitted(true);
+        await loginUser(email, password)
+        setSubmitted(false);
+        recaptchaRef.current?.reset();
     }
 
     return (
@@ -95,20 +73,13 @@ const LoginPage: NextPage = () => {
                             helperText={errors.password?.message}
                         />
 
-                        <ReCAPTCHA
-                            sitekey={process.env.NEXT_PUBLIC_RECAPTCHA!}
-                            onChange={handleRecaptcha}
-                        />
+                        <ReCaptcha ref={recaptchaRef}/>
 
                         <Button variant="contained" type="submit" disabled={submitted}>
                             Login
                         </Button>
 
                         <Typography textAlign="center" mt={1}> Forgot password? </Typography>
-
-                        <FormGroup>
-                            <FormControlLabel control={<Checkbox />} label="Recordame" />
-                        </FormGroup>
 
                         <Divider sx={{ width: '100%' }} >or</Divider>
 
