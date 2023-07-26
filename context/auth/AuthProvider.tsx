@@ -34,7 +34,7 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
     }, [data, status])
 
     useEffect(() => {
-        if (status === 'authenticated') {
+        if (status === 'authenticated' && !router.asPath.includes("/auth")) {
             alertSnack(`Welcome ${data.user?.name!}`, 'success');
         }
     }, [status])

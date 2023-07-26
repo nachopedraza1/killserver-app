@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { NextPage } from "next";
 
 import { UiContext } from "@/context/ui";
-import { AddServer, MainLayout } from "@/components";
+import { AddServer, MainLayout, TableServers } from "@/components";
 
 import { Button, Grid, Typography } from "@mui/material";
 
@@ -31,7 +31,7 @@ const DatabasePage: NextPage = () => {
             </Grid>
 
             <Grid container minHeight="100vh" className="bg-servers">
-
+                <TableServers />
             </Grid>
         </MainLayout>
     )

@@ -65,16 +65,5 @@ export const DarkTheme = createTheme({
                 }
             }
         },
-        MuiOutlinedInput: {
-            styleOverrides: {
-                input: {
-                    ':-webkit-autofill': {
-                        WebkitBoxShadow: '0 0 0 1000px #00000000 inset',
-                        backgroundColor: 'red !important'
-                    }
-                }
-            }
-        },
-
     }
 })
