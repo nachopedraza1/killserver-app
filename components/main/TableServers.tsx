@@ -42,17 +42,18 @@ export const TableServers = () => {
     useEffect(() => {
         setServerByFilter(gameservers)
         onFilterByGame();
-    }, [])
+    }, [chipName, isLoading])
 
     const onFilterByGame = () => {
         const serversFilter = gameservers.filter(srv => srv.game.includes(chipName.name));
-        if (chipName.name === 'All') {
+        /* if (chipName.name === 'All') {
             setChipName({ name: 'All', show: false })
             setServerByFilter(gameservers)
             return;
-        }
+        } */
         setServerByFilter(serversFilter)
     }
+
 
     return (
         <TableContainer component={Paper}>
@@ -88,7 +89,6 @@ export const TableServers = () => {
                         <MenuItem value="lineage2"> Lineage 2 </MenuItem>
                         <MenuItem value="worldofwarcraft"> World of Warcraft </MenuItem>
                         <MenuItem value="aion"> Aion Online </MenuItem>
-                        <MenuItem value="All">All</MenuItem>
                     </TextField>
                 </Grid>
                 <Grid item xs={2}>
