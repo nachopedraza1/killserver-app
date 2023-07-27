@@ -29,4 +29,4 @@ export type Hostings =
     | 'Hostinger'
     | "not listed-don't know"
 
-export type Vulnerabilities = ['', 'Cross-site request', 'Cross-site scripting', 'SQLI', 'DDOS', 'Loggin Buffer']
+export type Vulnerabilities = ['Cross-site request', 'Cross-site scripting', 'SQLI', 'DDOS', 'Loggin Buffer']

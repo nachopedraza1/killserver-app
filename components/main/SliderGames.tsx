@@ -12,7 +12,7 @@ export const SliderGames: FC = () => {
             <span className='line'></span>
             <Slide slidesToShow={4} infinite>
                 <Grid className="box-game each-slide-effect">
-                    <img src="/wow.png" width="100%" />
+                    <img src="/worldofwarcraft.png" width="100%" />
                 </Grid>
                 <Grid className="box-game each-slide-effect">
                     <img src="/muonline.png" width="100%" />

@@ -1,17 +1,17 @@
 import { FC, useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useRouter } from "next/router";
-import Link from "next/link";
 
 import { useSession } from "next-auth/react";
 
 import { UiContext } from "@/context/ui";
-import { hostings, alertSnack } from "@/utils";
+import { hostings, games, alertSnack } from "@/utils";
 import { killApi } from "@/api";
 
 import { Modal, Backdrop, Box, Fade, TextField, Typography, Grid, MenuItem, Button } from "@mui/material";
 import { Games, Hostings } from "@/interfaces";
 import { isAxiosError } from "axios";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 interface FormData {
     name: string,
@@ -108,12 +108,11 @@ export const AddServer: FC = () => {
                                             required: 'Required',
                                         })}
                                     >
-
-                                        <MenuItem value="muonline"> Mu Online </MenuItem>
-                                        <MenuItem value="cabal"> Cabal Online </MenuItem>
-                                        <MenuItem value="lineage2"> Lineage 2 </MenuItem>
-                                        <MenuItem value="worldofwarcraft"> World of Warcraft </MenuItem>
-                                        <MenuItem value="aion"> Aion Online </MenuItem>
+                                        {
+                                            games.map(game => (
+                                                <MenuItem key={game} value={game}> {game} </MenuItem>
+                                            ))
+                                        }
                                     </TextField>
 
                                     <TextField

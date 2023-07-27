@@ -41,11 +41,11 @@ const addServer = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
         })
     }
 
-    if (host.length <= 2 || !hostings.includes(`${host}`)) {
+    if (!hostings.includes(`${host}`)) {
         return res.status(400).json({ message: ' Invalid hosting' })
     }
 
-    if (game.length <= 2 || !games.includes(`${game}`)) {
+    if (!games.includes(`${game}`)) {
         return res.status(400).json({ message: 'Invalid game' })
     }
 

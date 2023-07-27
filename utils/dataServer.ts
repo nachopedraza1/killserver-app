@@ -1,5 +1,5 @@
 export const games = ['muonline', 'cabal', 'lineage2', 'worldofwarcraft', 'aion'];
-export const attacks = ['', 'Cross-site request', 'Cross-site scripting', 'SQLI', 'DDOS', 'Loggin Buffer'];
+export const attacks = ['Cross-site request', 'Cross-site scripting', 'SQLI', 'DDOS', 'Loggin Buffer'];
 
 export const hostings = ['Tempest',
     'OVH',

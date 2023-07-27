@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { killApi } from "@/api";
 
 import { useGameServers } from "@/hooks";
 import { attacks } from "@/utils";
@@ -9,6 +8,7 @@ import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, 
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck, faGlobe, faSearch } from "@fortawesome/free-solid-svg-icons";
+import { IGameServer } from "@/interfaces";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.body}`]: {
@@ -21,37 +21,49 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     },
 }));
 
-interface GameServer {
-    name: string,
-    urlWebsite: string,
-    vulnerabilities: string[],
-    host: string,
-    game: string;
-}
 
+type Vuln = 'Cross-site request' | 'Cross-site scripting' | 'SQLI' | 'DDOS' | 'Loggin Buffer'
 
 export const TableServers = () => {
 
     const { gameservers, isLoading } = useGameServers('/gameservers');
 
-    const [serverByFilter, setServerByFilter] = useState<GameServer[]>([]);
+    const [serverByFilter, setServerByFilter] = useState<IGameServer[]>([]);
 
-    const [chipName, setChipName] = useState({ show: false, name: '', })
+    const [chipGame, setChipGame] = useState({ show: false, name: '', })
     const [chipVuln, setChipVuln] = useState({ show: false, name: '', })
 
     useEffect(() => {
         setServerByFilter(gameservers)
-        onFilterByGame();
-    }, [chipName, isLoading])
+    }, [isLoading])
 
-    const onFilterByGame = () => {
-        const serversFilter = gameservers.filter(srv => srv.game.includes(chipName.name));
-        /* if (chipName.name === 'All') {
-            setChipName({ name: 'All', show: false })
-            setServerByFilter(gameservers)
-            return;
-        } */
+    useEffect(() => {
+        filterByGame();
+    }, [chipGame])
+
+    useEffect(() => {
+        filterByVuln();
+    }, [chipVuln])
+
+    const filterByGame = () => {
+        const serversFilter = gameservers.filter(srv => srv.game.includes(chipGame.name));
         setServerByFilter(serversFilter)
+    }
+
+    const filterByVuln = () => {
+        filterByGame();
+        if (chipVuln.name === '') return;
+        const serversFilter = gameservers.filter(srv => srv.vulnerabilities.includes(chipVuln.name as Vuln) && chipGame.name == srv.game);
+        setServerByFilter(serversFilter)
+    }
+
+    const handleChipDelete = (chipType: 'game' | 'vuln') => {
+        if (chipType === 'game') {
+            setChipVuln({ name: '', show: false });
+            setChipGame({ name: '', show: false });
+            return;
+        }
+        if (chipType === 'vuln') return setChipVuln({ name: '', show: false })
     }
 
 
@@ -81,8 +93,8 @@ export const TableServers = () => {
                         fullWidth
                         size="small"
                         label='Filter by game'
-                        value={chipName.name}
-                        onChange={({ target }) => setChipName({ show: true, name: target.value })}
+                        value={chipGame.name}
+                        onChange={({ target }) => setChipGame({ show: true, name: target.value })}
                     >
                         <MenuItem value="muonline"> Mu Online </MenuItem>
                         <MenuItem value="cabal"> Cabal Online </MenuItem>
@@ -109,13 +121,13 @@ export const TableServers = () => {
                 <Grid item xs={4}>
                     <Stack direction="row" spacing={2}>
                         <Chip
-                            label={chipName.name}
-                            onDelete={() => setChipName({ name: '', show: false })}
-                            sx={{ display: chipName.show ? "flex" : "none", textTransform: 'Capitalize' }}
+                            label={chipGame.name}
+                            onDelete={() => handleChipDelete("game")}
+                            sx={{ display: chipGame.show ? "flex" : "none", textTransform: 'Capitalize' }}
                         />
                         <Chip
                             label={chipVuln.name}
-                            onDelete={() => setChipVuln({ name: '', show: false })}
+                            onDelete={() => handleChipDelete("vuln")}
                             sx={{ display: chipVuln.show ? "flex" : "none", textTransform: 'Capitalize' }}
                         />
                     </Stack>
