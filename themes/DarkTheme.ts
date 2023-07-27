@@ -63,7 +63,17 @@ export const DarkTheme = createTheme({
                     fontFamily: 'Orbitron',
                     color: '#EF1679'
                 }
-            }
+            },
         },
+        MuiOutlinedInput: {
+            styleOverrides: {
+                input: {
+                    "&:-webkit-autofill": {
+                        "-webkit-box-shadow": "0 0 0 100px var(--primary-weak) inset",
+                        "-webkit-text-fill-color": "var(--text-primary)",
+                    },
+                },
+            },
+        }
     }
 })

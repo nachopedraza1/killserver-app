@@ -1,6 +1,6 @@
 import { Model, Schema, model, models } from "mongoose";
 import { IGameServer } from "@/interfaces";
-import { hostings, attacks } from "@/utils";
+import { hostings, attacks, games } from "@/utils";
 
 const GameServerSchema = new Schema({
     name: { type: String, required: true, unique: true },
@@ -23,7 +23,7 @@ const GameServerSchema = new Schema({
     game: {
         type: String,
         enum: {
-            values: ['Mu Online', 'Cabal Online', 'Lineage 2', 'World of Warcraft', 'Aion Online'],
+            values: games,
             message: '{VALUE} Invalid server'
         }
     },

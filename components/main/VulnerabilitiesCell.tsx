@@ -6,7 +6,6 @@ import { Tooltip, IconButton } from "@mui/material";
 
 export const VulnerabilitiesCell: FC<{ vulns: string[] }> = ({ vulns }) => {
 
-
     const vulnsIcons = vulns.map(item => {
         if (item === "DDOS") {
             return {

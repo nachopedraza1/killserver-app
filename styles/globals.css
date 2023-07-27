@@ -4,8 +4,9 @@ input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
     transition: background-color 5000s ease-in-out 0s, color 5000s ease-in-out 0s;
     transition-delay: background-color 5000s, color 5000s;
-    box-shadow: #AE61ED;
 }
+
+
 
 ::-webkit-scrollbar {
     background: #040612;
