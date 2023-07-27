@@ -41,16 +41,14 @@ export const TableServers = () => {
 
     useEffect(() => {
         setServerByFilter(gameservers)
+    }, [isLoading])
+
+    useEffect(() => {
         onFilterByGame();
-    }, [chipName, isLoading])
+    }, [chipName])
 
     const onFilterByGame = () => {
         const serversFilter = gameservers.filter(srv => srv.game.includes(chipName.name));
-        /* if (chipName.name === 'All') {
-            setChipName({ name: 'All', show: false })
-            setServerByFilter(gameservers)
-            return;
-        } */
         setServerByFilter(serversFilter)
     }
 
