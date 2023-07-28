@@ -4,7 +4,7 @@ import { NextFetchEvent, NextRequest, NextResponse } from 'next/server';
 
 export async function middleware(req: NextRequest, event: NextFetchEvent) {
 
-    const session = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+    /* const session = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
 
     switch (req.method) {
         case 'GET':
@@ -28,7 +28,7 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
                     'Content-Type': 'application/json'
                 }
             });
-    }
+    } */
 }
 
 export const config = {

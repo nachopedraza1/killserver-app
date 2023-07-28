@@ -10,27 +10,27 @@ export const VulnerabilitiesCell: FC<{ vulns: string[] }> = ({ vulns }) => {
         if (item === "DDOS") {
             return {
                 name: item,
-                icon: <FontAwesomeIcon size="xl" icon={faMeteor} />
+                icon: <FontAwesomeIcon icon={faMeteor} />
             }
         } else if (item === "SQLI") {
             return {
                 name: item,
-                icon: <FontAwesomeIcon size="xl" icon={faSyringe} />
+                icon: <FontAwesomeIcon icon={faSyringe} />
             }
         } else if (item === "Cross-site scripting") {
             return {
                 name: item,
-                icon: <FontAwesomeIcon size="xl" icon={faBug} />
+                icon: <FontAwesomeIcon icon={faBug} />
             }
         } else if (item === "Cross-site request") {
             return {
                 name: item,
-                icon: <FontAwesomeIcon size="xl" icon={faFileCode} />
+                icon: <FontAwesomeIcon icon={faFileCode} />
             }
         } else if (item === "Loggin Buffer") {
             return {
                 name: item,
-                icon: <FontAwesomeIcon size="xl" icon={faRobot} />
+                icon: <FontAwesomeIcon icon={faRobot} />
             }
         }
     })
