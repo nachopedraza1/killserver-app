@@ -4,7 +4,7 @@ import { useGameServers } from "@/hooks";
 import { attacks } from "@/utils";
 
 import { VulnerabilitiesCell } from "./VulnerabilitiesCell";
-import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, styled, tableCellClasses, IconButton, Tooltip, TextField, Grid, InputAdornment, MenuItem, Chip, Stack, TableFooter, TablePagination, Pagination } from "@mui/material";
+import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, styled, tableCellClasses, IconButton, Tooltip, TextField, Grid, InputAdornment, MenuItem, Chip, Stack } from "@mui/material";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck, faGlobe, faSearch } from "@fortawesome/free-solid-svg-icons";
@@ -28,49 +28,43 @@ export const TableServers = () => {
 
     const { gameservers, isLoading } = useGameServers('/gameservers');
 
-    const [pagination, setPagination] = useState(1);
-
-    const startIndex = (pagination - 1) * 10;
-    const endIndex = startIndex + 10;
-
-    const paginatedData = gameservers?.slice(startIndex, endIndex)
-
     const [serverByFilter, setServerByFilter] = useState<IGameServer[]>([]);
 
-    const [input, setInput] = useState({ game: '', vuln: '', search: '' });
+    const [chipGame, setChipGame] = useState('');
+    const [chipVuln, setChipVuln] = useState('');
+    const [chipSearch, setChipSearch] = useState('');
 
     useEffect(() => {
-        setServerByFilter(paginatedData)
-    }, [pagination])
-    
-
-    useEffect(() => {
-        setServerByFilter(paginatedData)
+        setServerByFilter(gameservers)
     }, [isLoading])
 
     useEffect(() => {
         onFilter();
-    }, [input.game, input.vuln])
+    }, [chipGame, chipVuln])
 
     const onFilter = () => {
-        setInput({ ...input, search: '' })
-        if (input.game === '') return setServerByFilter(paginatedData);
-        if (input.vuln === '') {
-            const byName = gameservers.filter(serv => serv.game === input.game);
+        setChipSearch('')
+        if (chipGame === '') return setServerByFilter(gameservers);
+        if (chipVuln === '') {
+            const byName = gameservers.filter(serv => serv.game === chipGame);
             return setServerByFilter(byName);
         }
-        const byNameAndAttack = gameservers.filter(serv => serv.game === input.game && serv.vulnerabilities.includes(input.vuln as Vuln));
+        const byNameAndAttack = gameservers.filter(serv => serv.game === chipGame && serv.vulnerabilities.includes(chipVuln as Vuln));
         setServerByFilter(byNameAndAttack);
     }
 
-    const handleChipDelete = (chipType: 'game' | 'vuln' | 'search') => {
-        if (chipType === 'search') return setInput({ ...input, search: '', game: '' });
-        if (chipType === 'game') return setInput({ ...input, vuln: '', game: '' });
-        if (chipType === 'vuln') return setInput({ ...input, vuln: '' });
+    const handleChipDelete = (chipType: 'game' | 'vuln') => {
+        if (chipType === 'game') {
+            setChipVuln('');
+            setChipGame('');
+            return;
+        }
+        if (chipType === 'vuln') return setChipVuln('')
     }
 
     const onSearch = ({ target }: ChangeEvent<HTMLInputElement>) => {
-        setInput({ vuln: '', game: '', search: target.value })
+        setChipGame('')
+        setChipSearch(target.value)
         const serversSearch = gameservers.filter(serv => serv.name.includes(target.value) || serv.game.includes(target.value))
         setServerByFilter(serversSearch);
     }
@@ -85,7 +79,7 @@ export const TableServers = () => {
                         fullWidth
                         size="small"
                         label="Search"
-                        value={input.search}
+                        value={chipSearch}
                         onChange={onSearch}
                         InputProps={{
                             endAdornment: (
@@ -102,8 +96,8 @@ export const TableServers = () => {
                         fullWidth
                         size="small"
                         label='Filter by game'
-                        value={input.game}
-                        onChange={({ target }) => setInput({ ...input, game: target.value })}
+                        value={chipGame}
+                        onChange={({ target }) => setChipGame(target.value)}
                     >
                         <MenuItem value="muonline"> Mu Online </MenuItem>
                         <MenuItem value="cabal"> Cabal Online </MenuItem>
@@ -116,11 +110,11 @@ export const TableServers = () => {
                     <TextField
                         select
                         fullWidth
-                        disabled={input.game === ''}
-                        value={input.vuln}
+                        disabled={chipGame === ''}
+                        value={chipVuln}
                         size="small"
                         label='Filter by attack'
-                        onChange={({ target }) => setInput({ ...input, vuln: target.value })}
+                        onChange={({ target }) => setChipVuln(target.value)}
                     >
                         {attacks.map(atk => (
                             <MenuItem key={atk} value={atk}> {atk} </MenuItem>
@@ -131,19 +125,19 @@ export const TableServers = () => {
                 <Grid item xs={4}>
                     <Stack direction="row" spacing={2}>
                         <Chip
-                            label={input.game}
+                            label={chipGame}
                             onDelete={() => handleChipDelete("game")}
-                            sx={{ display: input.game.length >= 1 ? "flex" : "none", textTransform: 'Capitalize' }}
+                            sx={{ display: chipGame.length >= 1 ? "flex" : "none", textTransform: 'Capitalize' }}
                         />
                         <Chip
-                            label={input.vuln}
+                            label={chipVuln}
                             onDelete={() => handleChipDelete("vuln")}
-                            sx={{ display: input.vuln.length >= 1 ? "flex" : "none", textTransform: 'Capitalize' }}
+                            sx={{ display: chipVuln.length >= 1 ? "flex" : "none", textTransform: 'Capitalize' }}
                         />
                         <Chip
-                            label={input.search}
-                            onDelete={() => handleChipDelete("search")}
-                            sx={{ display: input.search.length >= 1 ? "flex" : "none", textTransform: 'Capitalize' }}
+                            label={chipSearch}
+                            onDelete={() => handleChipDelete("vuln")}
+                            sx={{ display: chipSearch.length >= 1 ? "flex" : "none", textTransform: 'Capitalize' }}
                         />
                     </Stack>
                 </Grid>
@@ -197,13 +191,6 @@ export const TableServers = () => {
                         </TableRow>
                     ))}
                 </TableBody>
-                <TableFooter>
-                    <TableRow>
-                        <Button onClick={() => setPagination(pagination + 1)}>
-                            +
-                        </Button>
-                    </TableRow>
-                </TableFooter>
             </Table>
         </TableContainer >
     );
