@@ -23,7 +23,7 @@ export const AuthLayout: FC<Props> = ({ children, title }) => {
                             <img src="/Logo.png" alt="Kill a Server" width="170px" />
                             <img src="/ilust-home5.png" className="ilust-login" />
                         </Grid>
-                        <Grid item xs={6} display="flex" alignItems="center" justifyContent="end">
+                        <Grid item xs={6} display="flex" alignItems="center" justifyContent="end" className="fadeIn">
                             {children}
                         </Grid>
                     </Grid>

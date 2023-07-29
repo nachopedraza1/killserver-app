@@ -3,11 +3,13 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { useGameServers } from "@/hooks";
 import { attacks } from "@/utils";
 
-import { VulnerabilitiesCell } from "./VulnerabilitiesCell";
-import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, styled, tableCellClasses, IconButton, Tooltip, TextField, Grid, InputAdornment, MenuItem, Chip, Stack } from "@mui/material";
+import { LoadDataTables } from "./LoadDataTables";
+import { PaginationTable } from "./PaginationTable";
+import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, styled, tableCellClasses, TextField, Grid, InputAdornment, MenuItem, Chip, Stack, TableFooter, TablePagination, Skeleton } from '@mui/material';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheck, faGlobe, faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
+
 import { IGameServer } from "@/interfaces";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -30,9 +32,9 @@ export const TableServers = () => {
 
     const [serverByFilter, setServerByFilter] = useState<IGameServer[]>([]);
 
-    const [chipGame, setChipGame] = useState('');
-    const [chipVuln, setChipVuln] = useState('');
-    const [chipSearch, setChipSearch] = useState('');
+    const [input, setInput] = useState({ game: '', vuln: '', search: '' });
+
+    const [page, setPage] = useState(0);
 
     useEffect(() => {
         setServerByFilter(gameservers)
@@ -40,35 +42,49 @@ export const TableServers = () => {
 
     useEffect(() => {
         onFilter();
-    }, [chipGame, chipVuln])
+    }, [input.game, input.vuln])
 
+
+    //Filters
     const onFilter = () => {
-        setChipSearch('')
-        if (chipGame === '') return setServerByFilter(gameservers);
-        if (chipVuln === '') {
-            const byName = gameservers.filter(serv => serv.game === chipGame);
+        setInput({ ...input, search: '' })
+        if (input.game === '') return setServerByFilter(gameservers);
+        if (input.vuln === '') {
+            const byName = gameservers.filter(serv => serv.game === input.game);
             return setServerByFilter(byName);
         }
-        const byNameAndAttack = gameservers.filter(serv => serv.game === chipGame && serv.vulnerabilities.includes(chipVuln as Vuln));
+        const byNameAndAttack = gameservers.filter(serv => serv.game === input.game && serv.vulnerabilities.includes(input.vuln as Vuln));
         setServerByFilter(byNameAndAttack);
     }
 
-    const handleChipDelete = (chipType: 'game' | 'vuln') => {
-        if (chipType === 'game') {
-            setChipVuln('');
-            setChipGame('');
+    const handleChipDelete = (chipType: 'game' | 'vuln' | 'search') => {
+        if (chipType === 'game') return setInput({ ...input, vuln: '', game: '' });
+        if (chipType === 'vuln') return setInput({ ...input, vuln: '' });
+        if (chipType === 'search') {
+            setInput({ ...input, search: '', game: '' })
+            setServerByFilter(gameservers);
             return;
-        }
-        if (chipType === 'vuln') return setChipVuln('')
+        };
     }
 
     const onSearch = ({ target }: ChangeEvent<HTMLInputElement>) => {
-        setChipGame('')
-        setChipSearch(target.value)
+        setPage(0)
+        setInput({ vuln: '', game: '', search: target.value })
         const serversSearch = gameservers.filter(serv => serv.name.includes(target.value) || serv.game.includes(target.value))
         setServerByFilter(serversSearch);
     }
 
+
+    //Pagination 
+    const emptyRows =
+        page > 0 ? Math.max(0, (1 + page) * 10 - gameservers.length) : 0;
+
+    const handleChangePage = (
+        event: React.MouseEvent<HTMLButtonElement> | null,
+        newPage: number,
+    ) => {
+        setPage(newPage);
+    };
 
     return (
         <TableContainer component={Paper}>
@@ -79,7 +95,7 @@ export const TableServers = () => {
                         fullWidth
                         size="small"
                         label="Search"
-                        value={chipSearch}
+                        value={input.search}
                         onChange={onSearch}
                         InputProps={{
                             endAdornment: (
@@ -96,8 +112,8 @@ export const TableServers = () => {
                         fullWidth
                         size="small"
                         label='Filter by game'
-                        value={chipGame}
-                        onChange={({ target }) => setChipGame(target.value)}
+                        value={input.game}
+                        onChange={({ target }) => setInput({ ...input, game: target.value })}
                     >
                         <MenuItem value="muonline"> Mu Online </MenuItem>
                         <MenuItem value="cabal"> Cabal Online </MenuItem>
@@ -110,11 +126,11 @@ export const TableServers = () => {
                     <TextField
                         select
                         fullWidth
-                        disabled={chipGame === ''}
-                        value={chipVuln}
+                        disabled={input.game === ''}
+                        value={input.vuln}
                         size="small"
                         label='Filter by attack'
-                        onChange={({ target }) => setChipVuln(target.value)}
+                        onChange={({ target }) => setInput({ ...input, vuln: target.value })}
                     >
                         {attacks.map(atk => (
                             <MenuItem key={atk} value={atk}> {atk} </MenuItem>
@@ -125,25 +141,25 @@ export const TableServers = () => {
                 <Grid item xs={4}>
                     <Stack direction="row" spacing={2}>
                         <Chip
-                            label={chipGame}
+                            label={input.game}
                             onDelete={() => handleChipDelete("game")}
-                            sx={{ display: chipGame.length >= 1 ? "flex" : "none", textTransform: 'Capitalize' }}
+                            sx={{ display: input.game.length >= 1 ? "flex" : "none", textTransform: 'Capitalize' }}
                         />
                         <Chip
-                            label={chipVuln}
+                            label={input.vuln}
                             onDelete={() => handleChipDelete("vuln")}
-                            sx={{ display: chipVuln.length >= 1 ? "flex" : "none", textTransform: 'Capitalize' }}
+                            sx={{ display: input.vuln.length >= 1 ? "flex" : "none", textTransform: 'Capitalize' }}
                         />
                         <Chip
-                            label={chipSearch}
-                            onDelete={() => handleChipDelete("vuln")}
-                            sx={{ display: chipSearch.length >= 1 ? "flex" : "none", textTransform: 'Capitalize' }}
+                            label={input.search}
+                            onDelete={() => handleChipDelete("search")}
+                            sx={{ display: input.search.length >= 1 ? "flex" : "none", textTransform: 'Capitalize' }}
                         />
                     </Stack>
                 </Grid>
             </Grid>
 
-            <Table sx={{ minWidth: 700 }} aria-label="customized table">
+            <Table sx={{ minWidth: 500 }}>
                 <TableHead>
                     <TableRow>
                         <StyledTableCell >Game</StyledTableCell>
@@ -155,42 +171,31 @@ export const TableServers = () => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {serverByFilter.map(({ game, name, urlWebsite, vulnerabilities }) => (
-                        <TableRow key={name}>
 
-                            <StyledTableCell>
-                                <img src={`/${game}.png`} width="80px" />
-                            </StyledTableCell>
+                    {
+                        isLoading
+                            ? <LoadDataTables />
+                            : <PaginationTable gameservers={serverByFilter} page={page} />
+                    }
 
-                            <StyledTableCell align="center" scope="row">
-                                {name}
-                            </StyledTableCell>
-
-                            <StyledTableCell align="center">
-                                <Tooltip title={urlWebsite}>
-                                    <IconButton href={urlWebsite} target="_blank">
-                                        <FontAwesomeIcon icon={faGlobe} size="sm" />
-                                    </IconButton>
-                                </Tooltip>
-                            </StyledTableCell>
-
-                            <StyledTableCell align="center">
-                                <VulnerabilitiesCell vulns={vulnerabilities} />
-                            </StyledTableCell>
-
-                            <StyledTableCell align="center">
-                                <FontAwesomeIcon size="xl" icon={faCheck} />
-                            </StyledTableCell>
-
-                            <StyledTableCell align="center">
-                                <Button variant="contained">
-                                    KILL
-                                </Button>
-                            </StyledTableCell>
-
+                    {emptyRows > 0 && (
+                        <TableRow style={{ height: 73 * emptyRows }}>
+                            <TableCell colSpan={6} />
                         </TableRow>
-                    ))}
+                    )}
                 </TableBody>
+                <TableFooter>
+                    <TableRow>
+                        <TablePagination
+                            colSpan={6}
+                            count={serverByFilter.length}
+                            rowsPerPage={10}
+                            rowsPerPageOptions={[10]}
+                            page={page}
+                            onPageChange={handleChangePage}
+                        />
+                    </TableRow>
+                </TableFooter>
             </Table>
         </TableContainer >
     );

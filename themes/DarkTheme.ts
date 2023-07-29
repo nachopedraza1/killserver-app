@@ -69,8 +69,8 @@ export const DarkTheme = createTheme({
             styleOverrides: {
                 input: {
                     "&:-webkit-autofill": {
-                        "-webkit-box-shadow": "0 0 0 100px var(--primary-weak) inset",
-                        "-webkit-text-fill-color": "var(--text-primary)",
+                        "WebkitBoxShadow": "0 0 0 100px var(--primary-weak) inset",
+                        "WebkitTextFillColor": "var(--text-primary)",
                     },
                 },
             },

@@ -1,8 +1,9 @@
 import { FC } from "react";
 
+import { Tooltip, IconButton } from "@mui/material";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMeteor, faSyringe, faBug, faFileCode, faRobot } from "@fortawesome/free-solid-svg-icons";
-import { Tooltip, IconButton } from "@mui/material";
 
 export const VulnerabilitiesCell: FC<{ vulns: string[] }> = ({ vulns }) => {
 
@@ -39,7 +40,7 @@ export const VulnerabilitiesCell: FC<{ vulns: string[] }> = ({ vulns }) => {
         <>
             {
                 vulnsIcons.map(item => (
-                    <Tooltip title={item?.name}>
+                    <Tooltip key={item?.name} title={item?.name}>
                         <IconButton size="small" disableRipple>
                             {item?.icon}
                         </IconButton >
