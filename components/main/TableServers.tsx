@@ -5,7 +5,7 @@ import { attacks } from "@/utils";
 
 import { LoadDataTables } from "./LoadDataTables";
 import { PaginationTable } from "./PaginationTable";
-import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, styled, tableCellClasses, TextField, Grid, InputAdornment, MenuItem, Chip, Stack, TableFooter, TablePagination, Skeleton } from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, styled, tableCellClasses, TextField, Grid, InputAdornment, MenuItem, Chip, Stack, TableFooter, TablePagination } from '@mui/material';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
@@ -34,8 +34,6 @@ export const TableServers = () => {
 
     const [input, setInput] = useState({ game: '', vuln: '', search: '' });
 
-    const [page, setPage] = useState(0);
-
     useEffect(() => {
         setServerByFilter(gameservers)
     }, [isLoading])
@@ -47,6 +45,7 @@ export const TableServers = () => {
 
     //Filters
     const onFilter = () => {
+        setPage(0)
         setInput({ ...input, search: '' })
         if (input.game === '') return setServerByFilter(gameservers);
         if (input.vuln === '') {
@@ -76,8 +75,9 @@ export const TableServers = () => {
 
 
     //Pagination 
-    const emptyRows =
-        page > 0 ? Math.max(0, (1 + page) * 10 - gameservers.length) : 0;
+    const [page, setPage] = useState<number>(0);
+
+    const emptyRows = Math.max(0, (1 + page) * 10 - serverByFilter.length);
 
     const handleChangePage = (
         event: React.MouseEvent<HTMLButtonElement> | null,
@@ -87,7 +87,7 @@ export const TableServers = () => {
     };
 
     return (
-        <TableContainer component={Paper}>
+        <TableContainer>
 
             <Grid container alignItems="center" padding={2} gap={3} >
                 <Grid item xs={3}>
@@ -159,7 +159,7 @@ export const TableServers = () => {
                 </Grid>
             </Grid>
 
-            <Table sx={{ minWidth: 500 }}>
+            <Table>
                 <TableHead>
                     <TableRow>
                         <StyledTableCell >Game</StyledTableCell>
@@ -179,8 +179,8 @@ export const TableServers = () => {
                     }
 
                     {emptyRows > 0 && (
-                        <TableRow style={{ height: 73 * emptyRows }}>
-                            <TableCell colSpan={6} />
+                        <TableRow style={{ height: 71.5 * emptyRows }}>
+                            <StyledTableCell colSpan={6} />
                         </TableRow>
                     )}
                 </TableBody>
@@ -193,6 +193,7 @@ export const TableServers = () => {
                             rowsPerPageOptions={[10]}
                             page={page}
                             onPageChange={handleChangePage}
+                            sx={{ borderBottom: "none" }}
                         />
                     </TableRow>
                 </TableFooter>

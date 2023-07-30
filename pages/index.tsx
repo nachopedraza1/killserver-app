@@ -1,6 +1,6 @@
 import Image from 'next/image';
-import { MainLayout, SliderGames } from '@/components';
-import { Button, Grid, Typography } from '@mui/material';
+import { ClientStats, MainLayout, SliderGames } from '@/components';
+import { Box, Button, Grid, Typography } from '@mui/material';
 
 const HomePage = () => {
 
@@ -40,10 +40,14 @@ const HomePage = () => {
             contact us
           </Button>
         </Grid>
-        <Grid item xs={6} textAlign="center">
-          <img src="/ilust-home2.png" width="80%" />
+        <Grid item xs={6} textAlign="center" position="relative">
+          <Box width="80%" height={330}>
+            <Image src="/ilust-home2.png" alt='Kill a server database' fill objectFit='contain' />
+          </Box>
         </Grid>
       </Grid>
+
+      <ClientStats />
 
       <Grid container justifyContent="center" alignItems="center" mt={5} gap={5}>
         <Grid item xs={12} textAlign="center">
@@ -60,6 +64,10 @@ const HomePage = () => {
         </Grid>
         <Grid item xs={2.6} className="team-card">
           <Typography variant="h6">Secret</Typography>
+          <Typography>SQLI  expert</Typography>
+        </Grid>
+        <Grid item xs={2.6} className="team-card">
+          <Typography variant="h6">XZT</Typography>
           <Typography>SQLI  expert</Typography>
         </Grid>
       </Grid>

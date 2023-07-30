@@ -1,5 +1,8 @@
 import { FC, useContext, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/router";
+import Link from "next/link";
+import Image from "next/image";
 
 import { useSession } from "next-auth/react";
 
@@ -10,8 +13,6 @@ import { killApi } from "@/api";
 import { Modal, Backdrop, Box, Fade, TextField, Typography, Grid, MenuItem, Button } from "@mui/material";
 import { Games, Hostings } from "@/interfaces";
 import { isAxiosError } from "axios";
-import Link from "next/link";
-import { useRouter } from "next/router";
 
 interface FormData {
     name: string,
@@ -63,7 +64,9 @@ export const AddServer: FC = () => {
                 <Fade in={openServerModal}>
                     <Box className="bg-modal">
                         <Box position="relative">
-                            <img src="/addserver.png" width="70%" className="img-z" />
+                            <Box width="70%" height="200px" className="img-z">
+                                <Image src="/addserver.png" alt="upload-server" fill objectFit="cover" />
+                            </Box>
                             <Typography variant="h5" textAlign="center" fontWeight={600} > Add server </Typography>
                             <Typography mb={1}> Please enter the server data, our experts will analyze it and if any vulnerability is found, it will be posted in our list. </Typography>
 

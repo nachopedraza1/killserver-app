@@ -4,7 +4,7 @@ import ReCAPTCHA from "react-google-recaptcha";
 
 type CaptchaIframe = ReCAPTCHA;
 
-export const ReCaptcha = forwardRef<CaptchaIframe>((_props, ref) => {
+const ReCaptcha = forwardRef<CaptchaIframe>((_props, ref) => {
 
     const handleRecaptcha = async (token: string | null) => {
         Cookies.set('tokenCaptcha', token!)
@@ -24,3 +24,7 @@ export const ReCaptcha = forwardRef<CaptchaIframe>((_props, ref) => {
     )
 }
 );
+
+ReCaptcha.displayName = "ReCaptcha";
+
+export default ReCaptcha;

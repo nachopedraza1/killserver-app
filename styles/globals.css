@@ -6,7 +6,6 @@ input:-webkit-autofill:active {
     transition-delay: background-color 5000s, color 5000s;
 }
 
-
 ::-webkit-scrollbar {
     background: #040612;
     width: 3px;
@@ -96,7 +95,7 @@ input:-webkit-autofill:active {
     top: 0;
     left: 0;
     right: 0;
-    bottom: 0
+    bottom: 0;
 }
 
 
@@ -139,6 +138,42 @@ input:-webkit-autofill:active {
 .navbar-blur {
     background: transparent;
     transition: 0.3s all;
+}
+
+
+.nav-link a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 90%;
+    height: 2px;
+    background-color: #EF1679;
+    transition: all 0.3s;
+    opacity: 0;
+}
+
+.nav-link a:hover::after {
+    box-shadow: 0px -5px 15px rgba(241, 72, 76, 0.8);
+    transition: all 0.3s;
+    bottom: 0px;
+    opacity: 1;
+}
+
+.active-link a::after {
+    content: '';
+    position: absolute;
+    bottom: 0px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 90%;
+    height: 2px;
+    background-color: #EF1679;
+    transition: all 0.3s;
+    opacity: 1;
 }
 
 .active-blur {
@@ -275,4 +310,38 @@ input:-webkit-autofill:active {
     border-radius: 10px;
     background: var(--glass-1-fill-carey, linear-gradient(294deg, rgba(191, 191, 191, 0.06) 0%, rgba(0, 0, 0, 0.00) 100%), rgba(0, 0, 0, 0.14));
     box-shadow: -8px 4px 5px 0px rgba(0, 0, 0, 0.24);
+}
+
+.stats-box {
+    border-radius: 10px;
+    padding: 40px 30px;
+    margin: 50px 0px;
+    cursor: default;
+    border: 1px solid hsla(0, 0%, 100%, .1);
+    background: var(--glass-1-fill-carey, linear-gradient(294deg, rgba(191, 191, 191, 0.06) 0%, rgba(0, 0, 0, 0.00) 100%), rgba(0, 0, 0, 0.14));
+    box-shadow: -8px 4px 5px 0px rgba(0, 0, 0, 0.24);
+    backdrop-filter: blur(26.5px);
+    transition: all .4s;
+}
+
+.stats-box .count {
+    font-size: 25px;
+    margin-right: 10px;
+    font-weight: 600;
+}
+
+.stats-box .divider {
+    margin: 15px auto;
+    background-color: #EF1679;
+    display: block;
+    width: 25%;
+    height: 1px;
+}
+
+.stats-box svg {
+    color: #EF1679;
+    margin-bottom: 10px;
+    width: 100%;
+    text-align: center;
+    font-size: 50px;
 }

@@ -12,7 +12,6 @@ type Data =
     | IGameServer
 
 
-
 export default function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
     switch (req.method) {
         case 'GET':
@@ -73,17 +72,9 @@ const addServer = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 
 const getServers = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 
-    /* const page = parseInt(req.query.page as string, 10) || 1;
-    const perPage = parseInt(req.query.perPage as string, 10) || 10;
-
-    const startIndex = (page - 1) * perPage;
-    const endIndex = startIndex + perPage; */
-
     await db.connect();
-    const servers = await GameServer.find().lean();
+    const servers = await GameServer.find({ posted: 'posted' }).lean();
     await db.disconnect();
-
-    /* const paginatedData = servers.slice(startIndex, endIndex) */
 
     return res.status(200).json(servers)
 }

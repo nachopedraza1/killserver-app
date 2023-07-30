@@ -43,7 +43,7 @@ const LoginPage: NextPage = () => {
         <AuthLayout title="Ingresar">
             <form onSubmit={handleSubmit(onLogin)} noValidate>
                 <Box className="form-sign">
-                    <Grid container direction="column" gap={2}>
+                    <Grid container direction="column" gap={1.6}>
 
                         <Typography variant='h4'>Login</Typography>
 
@@ -73,7 +73,7 @@ const LoginPage: NextPage = () => {
                             helperText={errors.password?.message}
                         />
 
-                        <ReCaptcha ref={recaptchaRef}/>
+                        <ReCaptcha ref={recaptchaRef} />
 
                         <Button variant="contained" type="submit" disabled={submitted}>
                             Login

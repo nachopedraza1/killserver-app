@@ -5,7 +5,7 @@ import { SessionProvider } from "next-auth/react"
 import { ThemeProvider, CssBaseline } from '@mui/material'
 import { DarkTheme } from '@/themes'
 
-import { AuthProvider, UiProvider } from '@/context'
+import { AuthProvider, GsProvider, UiProvider } from '@/context'
 
 import { SnackbarProvider } from 'notistack'
 import { SWRConfig } from 'swr'
@@ -19,14 +19,16 @@ export default function App({ Component, pageProps }: AppProps) {
         }}
       >
         <AuthProvider>
-          <UiProvider>
-            <SnackbarProvider>
-              <ThemeProvider theme={DarkTheme}>
-                <CssBaseline />
-                <Component {...pageProps} />
-              </ThemeProvider>
-            </SnackbarProvider>
-          </UiProvider>
+          <GsProvider>
+            <UiProvider>
+              <SnackbarProvider>
+                <ThemeProvider theme={DarkTheme}>
+                  <CssBaseline />
+                  <Component {...pageProps} />
+                </ThemeProvider>
+              </SnackbarProvider>
+            </UiProvider>
+          </GsProvider>
         </AuthProvider>
       </SWRConfig>
     </SessionProvider>

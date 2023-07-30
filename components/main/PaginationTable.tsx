@@ -1,4 +1,5 @@
 import { FC } from "react";
+import Image from 'next/image';
 
 import { TableRow, Box, Tooltip, IconButton, Button, styled, tableCellClasses, TableCell } from "@mui/material";
 import { VulnerabilitiesCell } from "./VulnerabilitiesCell";
@@ -29,8 +30,8 @@ export const PaginationTable: FC<{ gameservers: IGameServer[], page: number }> =
                 <TableRow key={name} className="fadeIn">
 
                     <StyledTableCell>
-                        <Box width={60} height={40} pt={0.7}>
-                            <img src={`/${game}.png`} width="100%" />
+                        <Box width="100%"height={35} pt={0.7} position="relative">
+                            <Image src={`/${game}.png`} alt={`Kill Server ${game}`} fill objectFit="contain" />
                         </Box>
                     </StyledTableCell>
 

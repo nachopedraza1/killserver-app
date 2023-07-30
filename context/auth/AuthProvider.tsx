@@ -1,4 +1,4 @@
-import { FC, ReactNode, useEffect, useReducer, useState } from 'react';
+import { FC, ReactNode, useEffect, useReducer } from 'react';
 import { useRouter } from 'next/router';
 import { AuthContext, authReducer } from './';
 

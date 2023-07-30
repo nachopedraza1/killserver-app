@@ -4,10 +4,10 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
 
-import { getSession, signIn } from "next-auth/react";
+import { getSession } from "next-auth/react";
 import { useForm } from "react-hook-form";
 
-import { alertSnack, isEmail } from "@/utils";
+import { isEmail } from "@/utils";
 import { AuthContext } from "@/context";
 
 import { Box, Grid, Typography, TextField, Button, Divider } from "@mui/material";
@@ -42,7 +42,7 @@ const RegisterPage: NextPage = () => {
         <AuthLayout title="Ingresar">
             <form onSubmit={handleSubmit(onRegister)} noValidate>
                 <Box className="form-sign">
-                    <Grid container direction="column" gap={2}>
+                    <Grid container direction="column" gap={1.5}>
 
                         <Typography variant='h4'>Register</Typography>
 

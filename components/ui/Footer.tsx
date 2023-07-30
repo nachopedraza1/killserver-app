@@ -1,4 +1,5 @@
 import { FC } from "react";
+import Image from "next/image";
 
 import { useSession } from "next-auth/react";
 
@@ -22,7 +23,7 @@ export const Footer: FC = () => {
                     <Container>
                         <Grid container justifyContent="space-between">
                             <Grid item xs={2}>
-                                <img src="/Logo.png" alt="Kill a Server" width="170px" />
+                                <Image src="/Logo.png" alt="Kill a Server" width={170} height={60} />
                             </Grid>
                             <Grid item display="flex" alignItems="center">
                                 <nav>
