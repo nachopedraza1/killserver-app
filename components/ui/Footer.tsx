@@ -1,15 +1,16 @@
 import { FC } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 import { useSession } from "next-auth/react";
 
-import { AppBar, Button, Container, Grid, Link, List, ListItem, Toolbar, Link as MuiLink } from "@mui/material";
+import { AppBar, Button, Container, Grid, List, ListItem, Toolbar, Link as MuiLink } from "@mui/material";
 
 const navLinks = [
     { text: 'HOME', path: '/' },
     { text: 'SERVERS', path: '/database' },
-    { text: 'TEAM', path: '/' },
-    { text: 'ABOUT', path: '/' },
+    { text: 'WEBSITES', path: '/websites' },
+    { text: 'CONTACT', path: process.env.NEXT_PUBLIC_TELEGRAM!, target: '_blank' },
 ]
 
 export const Footer: FC = () => {
@@ -28,9 +29,9 @@ export const Footer: FC = () => {
                             <Grid item display="flex" alignItems="center">
                                 <nav>
                                     <List sx={{ display: 'flex' }}>
-                                        {navLinks.map(({ text, path }) => (
+                                        {navLinks.map(({ text, path, target }) => (
                                             <ListItem key={text}>
-                                                <MuiLink component={Link} href={path} fontSize={13} letterSpacing={3} className="nav-link">
+                                                <MuiLink component={Link} href={path} fontSize={13} letterSpacing={3} className="nav-link" target={target}>
                                                     {text}
                                                 </MuiLink>
                                             </ListItem>

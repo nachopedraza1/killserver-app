@@ -12,7 +12,7 @@ const DatabasePage: NextPage = () => {
 
     return (
         <MainLayout title="Server List">
-            <Grid container minHeight="100vh" justifyContent="center" alignItems="center" textAlign="center">
+            <Grid container minHeight="100vh" justifyContent="center" alignItems="center" textAlign="center" data-aos="fade-up">
                 <Grid item xs={6}>
                     <Grid container direction="column" gap={2}>
                         <Typography variant="h3" textTransform="uppercase" color="primary.main"> server list </Typography>
@@ -22,7 +22,7 @@ const DatabasePage: NextPage = () => {
                     <Button variant='outlined' sx={{ mr: 2 }} onClick={toggleModal}>
                         Add server
                     </Button>
-                    <Button variant='contained' >
+                    <Button variant='contained' href={process.env.NEXT_PUBLIC_TELEGRAM!} target="_blank" >
                         contact us
                     </Button>
 
@@ -30,7 +30,7 @@ const DatabasePage: NextPage = () => {
                 </Grid>
             </Grid>
 
-            <Grid container minHeight="100vh" className="bg-servers">
+            <Grid container minHeight="100vh" className="bg-servers" data-aos="fade">
                 <TableServers />
             </Grid>
         </MainLayout>

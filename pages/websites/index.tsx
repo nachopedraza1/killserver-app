@@ -21,7 +21,7 @@ const AboutPage: NextPage = () => {
 
     return (
         <MainLayout title="Website List">
-            <Grid container minHeight="100vh" justifyContent="center" alignItems="center" textAlign="center">
+            <Grid container minHeight="100vh" justifyContent="center" alignItems="center" textAlign="center" data-aos="fade-up">
                 <Grid item xs={6}>
                     <Grid container direction="column" gap={2}>
                         <Typography variant="h3" textTransform="uppercase" color="primary.main"> Website list </Typography>
@@ -31,13 +31,13 @@ const AboutPage: NextPage = () => {
                     <Button variant='outlined' sx={{ mr: 2 }} disabled={true} >
                         Add website
                     </Button>
-                    <Button variant='contained' >
+                    <Button variant='contained' href={process.env.NEXT_PUBLIC_TELEGRAM!} target="_blank">
                         contact us
                     </Button>
                 </Grid>
             </Grid>
 
-            <Grid container minHeight="100vh" className="bg-servers">
+            <Grid container minHeight="100vh" className="bg-servers" data-aos="fade">
                 <TableContainer>
 
                     <Grid container alignItems="center" padding={2} gap={3} >

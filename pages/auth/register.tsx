@@ -10,7 +10,7 @@ import { useForm } from "react-hook-form";
 import { isEmail } from "@/utils";
 import { AuthContext } from "@/context";
 
-import { Box, Grid, Typography, TextField, Button, Divider } from "@mui/material";
+import { Box, Grid, Typography, TextField, Button, Divider, CircularProgress } from "@mui/material";
 import { AuthLayout, ReCaptcha } from "@/components";
 import ReCAPTCHA from 'react-google-recaptcha';
 
@@ -88,7 +88,7 @@ const RegisterPage: NextPage = () => {
                         <ReCaptcha ref={recaptchaRef} />
 
                         <Button variant="contained" type="submit" disabled={submitted}>
-                            Register
+                            {submitted ? <CircularProgress size={25} /> : "login"}
                         </Button>
 
                         <Divider sx={{ width: '100%' }} >or</Divider>

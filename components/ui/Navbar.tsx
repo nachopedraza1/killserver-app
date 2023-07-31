@@ -16,7 +16,7 @@ const navLinks = [
     { text: 'HOME', path: '/' },
     { text: 'SERVERS', path: '/database' },
     { text: 'WEBSITES', path: '/websites' },
-    { text: 'CONTACT', path: '/a' },
+    { text: 'CONTACT', path: process.env.NEXT_PUBLIC_TELEGRAM!, target: '_blank' },
 ]
 
 export const Navbar: FC = (props: Props) => {
@@ -42,9 +42,9 @@ export const Navbar: FC = (props: Props) => {
                             <Grid item display="flex" alignItems="center">
                                 <nav>
                                     <List sx={{ display: 'flex' }}>
-                                        {navLinks.map(({ text, path }) => (
+                                        {navLinks.map(({ text, path, target }) => (
                                             <ListItem key={text} className={isActiveClass(path)}>
-                                                <MuiLink component={Link} href={path} fontSize={13} letterSpacing={3}  >
+                                                <MuiLink component={Link} href={path} fontSize={13} letterSpacing={3} target={target || ""}  >
                                                     {text}
                                                 </MuiLink>
                                             </ListItem>

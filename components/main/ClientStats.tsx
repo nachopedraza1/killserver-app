@@ -29,6 +29,7 @@ export const ClientStats: FC = () => {
             className="stats-box"
             gap={{ xs: 4, sm: 0 }}
             direction={{ xs: "column", sm: "row" }}
+            data-aos="fade"
         >
             {stats.map(({ title, value, icon }) => (
                 <Grid item xs={3} textAlign="center" key={title}>

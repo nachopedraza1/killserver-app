@@ -4,7 +4,12 @@ import { useSession } from 'next-auth/react';
 import { AuthContext } from '@/context';
 
 import { Menu, MenuItem, ListItemIcon, IconButton, Typography } from '@mui/material';
-import { Email, Logout, ManageAccountsOutlined, Person } from '@mui/icons-material';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser, faEnvelope, faRightFromBracket, faCircleUser } from '@fortawesome/free-solid-svg-icons';
+
+
+
 
 
 export const UserButtons = () => {
@@ -24,7 +29,7 @@ export const UserButtons = () => {
     return (
         <>
             <IconButton onClick={handleClick} color='primary' sx={{ mb: 0.8 }}>
-                <ManageAccountsOutlined />
+                <FontAwesomeIcon icon={faCircleUser} />
             </IconButton>
 
             <Menu
@@ -38,19 +43,19 @@ export const UserButtons = () => {
             >
                 <MenuItem disabled>
                     <ListItemIcon >
-                        <Person fontSize="small" />
+                        <FontAwesomeIcon icon={faUser} />
                     </ListItemIcon>
                     <Typography textTransform="capitalize"> {data?.user?.name}</Typography>
                 </MenuItem>
                 <MenuItem disabled>
                     <ListItemIcon>
-                        <Email fontSize="small" />
+                        <FontAwesomeIcon icon={faEnvelope} />
                     </ListItemIcon>
                     {data?.user?.email}
                 </MenuItem>
                 <MenuItem onClick={logoutUser}>
                     <ListItemIcon>
-                        <Logout fontSize="small" />
+                        <FontAwesomeIcon icon={faRightFromBracket} />
                     </ListItemIcon>
                     Logout
                 </MenuItem>

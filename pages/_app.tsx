@@ -1,4 +1,4 @@
-import '@/styles/globals.css'
+import { useEffect } from 'react'
 import type { AppProps } from 'next/app'
 import { SessionProvider } from "next-auth/react"
 
@@ -10,7 +10,22 @@ import { AuthProvider, GsProvider, UiProvider } from '@/context'
 import { SnackbarProvider } from 'notistack'
 import { SWRConfig } from 'swr'
 
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import '@/styles/globals.css'
+
 export default function App({ Component, pageProps }: AppProps) {
+
+  useEffect(() => {
+    AOS.init({
+      offset: 100,
+      duration: 500,
+      easing: 'ease-in-out',
+      delay: 100,
+      once: true,
+    });
+  }, []);
+
   return (
     <SessionProvider>
       <SWRConfig

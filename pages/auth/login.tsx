@@ -12,7 +12,7 @@ import ReCAPTCHA from 'react-google-recaptcha';
 import { isEmail } from "@/utils";
 import { AuthContext } from '@/context';
 
-import { Box, Button, Divider, Grid, TextField, Typography } from "@mui/material";
+import { Box, Button, CircularProgress, Divider, Grid, TextField, Typography } from "@mui/material";
 import { AuthLayout, ReCaptcha } from "@/components";
 
 type FormData = {
@@ -76,7 +76,7 @@ const LoginPage: NextPage = () => {
                         <ReCaptcha ref={recaptchaRef} />
 
                         <Button variant="contained" type="submit" disabled={submitted}>
-                            Login
+                            {submitted ? <CircularProgress size={25} /> : "login"}
                         </Button>
 
                         <Typography textAlign="center" mt={1}> Forgot password? </Typography>
