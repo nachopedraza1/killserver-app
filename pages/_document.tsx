@@ -1,4 +1,5 @@
 import { Html, Head, Main, NextScript } from 'next/document'
+import Script from 'next/script'
 
 export default function Document() {
   return (
@@ -16,7 +17,7 @@ export default function Document() {
         <NextScript />
       </body>
 
-      <script src="https://cdn.sellix.io/static/js/embed.js"></script>
+      <Script src="https://cdn.sellix.io/static/js/embed.js"></Script>
 
     </Html>
   )
