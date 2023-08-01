@@ -1,5 +1,6 @@
 import { FC } from "react";
 import Image from 'next/image';
+import Script from 'next/script';
 
 import { TableRow, Box, Tooltip, IconButton, Button, styled, tableCellClasses, TableCell } from "@mui/material";
 import { VulnerabilitiesCell } from "./VulnerabilitiesCell";
@@ -30,7 +31,7 @@ export const PaginationTable: FC<{ gameservers: IGameServer[], page: number }> =
                 <TableRow key={name} className="fadeIn">
 
                     <StyledTableCell>
-                        <Box width="100%"height={35} pt={0.7} position="relative">
+                        <Box width="100%" height={35} pt={0.7} position="relative">
                             <Image src={`/${game}.png`} alt={`Kill Server ${game}`} fill objectFit="contain" />
                         </Box>
                     </StyledTableCell>
@@ -56,10 +57,12 @@ export const PaginationTable: FC<{ gameservers: IGameServer[], page: number }> =
                     </StyledTableCell>
 
                     <StyledTableCell align="center">
-                        <Button variant="contained" data-sellix-product="64c8a3c085041">
+                        <Button variant="contained" type="submit" data-sellix-product="64c8a3c085041">
                             KILL
                         </Button>
                     </StyledTableCell>
+
+                    <Script src="https://cdn.sellix.io/static/js/embed.js"></Script>
 
                 </TableRow>
             ))}

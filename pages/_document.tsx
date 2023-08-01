@@ -17,8 +17,6 @@ export default function Document() {
         <NextScript />
       </body>
 
-      <Script src="https://cdn.sellix.io/static/js/embed.js"></Script>
-
     </Html>
   )
 }

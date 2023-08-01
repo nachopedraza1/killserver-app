@@ -178,7 +178,7 @@ export const TableServers = () => {
                             : <PaginationTable gameservers={serverByFilter} page={page} />
                     }
 
-                    {emptyRows > 0 && (
+                    {(emptyRows > 0 && isLoading === false) && (
                         <TableRow style={{ height: 71.5 * emptyRows }}>
                             <StyledTableCell colSpan={6} />
                         </TableRow>
