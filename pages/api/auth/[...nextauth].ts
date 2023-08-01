@@ -1,7 +1,11 @@
 import { dbUsers } from "@/db";
 import { NextAuthOptions } from "next-auth";
 import NextAuth from "next-auth/next";
+
 import Credentials from "next-auth/providers/credentials";
+import DiscordProvider from "next-auth/providers/discord";
+import GitHubProvider from "next-auth/providers/github";
+
 
 declare module "next-auth" {
     interface Session {
@@ -23,6 +27,14 @@ export const authOptions: NextAuthOptions = {
             }, async authorize(credentials) {
                 return await dbUsers.checkUserEmailPassword(credentials!.email, credentials!.password);
             },
+        }),
+        DiscordProvider({
+            clientId: process.env.DISCORD_CLIENT_ID!,
+            clientSecret: process.env.DISCORD_CLIENT_SECRET!
+        }),
+        GitHubProvider({
+            clientId: process.env.GITHUB_ID!,
+            clientSecret: process.env.GITHUB_SECRET!
         })
     ],
 

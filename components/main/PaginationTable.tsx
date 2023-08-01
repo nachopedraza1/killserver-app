@@ -56,7 +56,7 @@ export const PaginationTable: FC<{ gameservers: IGameServer[], page: number }> =
                     </StyledTableCell>
 
                     <StyledTableCell align="center">
-                        <Button variant="contained">
+                        <Button variant="contained" data-sellix-product="64c8a3c085041">
                             KILL
                         </Button>
                     </StyledTableCell>

@@ -10,7 +10,7 @@ import { useForm } from "react-hook-form";
 import { isEmail } from "@/utils";
 import { AuthContext } from "@/context";
 
-import { Box, Grid, Typography, TextField, Button, Divider, CircularProgress } from "@mui/material";
+import { Box, Grid, Typography, TextField, Button, Divider, CircularProgress, IconButton } from '@mui/material';
 import { AuthLayout, ReCaptcha } from "@/components";
 import ReCAPTCHA from 'react-google-recaptcha';
 
@@ -40,80 +40,77 @@ const RegisterPage: NextPage = () => {
 
     return (
         <AuthLayout title="Ingresar">
-            <form onSubmit={handleSubmit(onRegister)} noValidate>
-                <Box className="form-sign">
-                    <Grid container direction="column" gap={1.5}>
+            <form onSubmit={handleSubmit(onRegister)} noValidate className="form-sign">
 
-                        <Typography variant='h4'>Register</Typography>
+                <Grid container direction="column" gap={1.5}>
+                    <Typography variant='h4'>Register</Typography>
+                    <TextField
+                        type="text"
+                        fullWidth
+                        label="Name"
+                        placeholder="Enter your name"
+                        {...register('name', {
+                            required: 'Este campo es requerido',
+                            minLength: { value: 2, message: 'Mínimo 2 caracteres' }
+                        })}
+                        error={!!errors.name}
+                        helperText={errors.name?.message}
+                    />
 
-                        <TextField
-                            type="text"
-                            fullWidth
-                            label="Name"
-                            placeholder="Enter your name"
-                            {...register('name', {
-                                required: 'Este campo es requerido',
-                                minLength: { value: 2, message: 'Mínimo 2 caracteres' }
-                            })}
-                            error={!!errors.name}
-                            helperText={errors.name?.message}
-                        />
+                    <TextField
+                        type="email"
+                        fullWidth
+                        label="Email"
+                        placeholder="Enter your email"
+                        {...register('email', {
+                            required: 'Este campo es requerido',
+                            validate: isEmail
+                        })}
+                        error={!!errors.email}
+                        helperText={errors.email?.message}
+                    />
 
-                        <TextField
-                            type="email"
-                            fullWidth
-                            label="Email"
-                            placeholder="Enter your email"
-                            {...register('email', {
-                                required: 'Este campo es requerido',
-                                validate: isEmail
-                            })}
-                            error={!!errors.email}
-                            helperText={errors.email?.message}
-                        />
+                    <TextField
+                        fullWidth
+                        type='password'
+                        label="Password"
+                        placeholder="Enter your password"
+                        {...register('password', {
+                            required: 'Este campo es requerido',
+                            minLength: { value: 6, message: 'Mínimo 6 caracteres' }
+                        })}
+                        error={!!errors.password}
+                        helperText={errors.password?.message}
+                    />
 
-                        <TextField
-                            fullWidth
-                            type='password'
-                            label="Password"
-                            placeholder="Enter your password"
-                            {...register('password', {
-                                required: 'Este campo es requerido',
-                                minLength: { value: 6, message: 'Mínimo 6 caracteres' }
-                            })}
-                            error={!!errors.password}
-                            helperText={errors.password?.message}
-                        />
+                    <ReCaptcha ref={recaptchaRef} />
 
-                        <ReCaptcha ref={recaptchaRef} />
+                    <Button variant="contained" type="submit" disabled={submitted}>
+                        {submitted ? <CircularProgress size={25} /> : "login"}
+                    </Button>
 
-                        <Button variant="contained" type="submit" disabled={submitted}>
-                            {submitted ? <CircularProgress size={25} /> : "login"}
-                        </Button>
+                    <Divider sx={{ width: '100%' }} >or</Divider>
 
-                        <Divider sx={{ width: '100%' }} >or</Divider>
-
-                        <Grid container justifyContent="center" alignItems="center" mb={3}>
-                            <Button disableTouchRipple>
-                                <Image src="/google.png" width={32} height={32} alt='google' />
-                            </Button>
-                            <Button disableTouchRipple>
-                                <Image src="/facebook.png" width={32} height={32} alt='google' />
-                            </Button>
-                            <Button disableTouchRipple>
-                                <Image src="/appled.png" width={32} height={32} alt='google' />
-                            </Button>
-                        </Grid>
-
-                        <Typography textAlign="center">
-                            Already Registered?
-                            <Link href={query.p ? `/auth/login?p=${query.p}` : '/auth/login'} className="custom-link" >
-                                Login
-                            </Link>
-                        </Typography>
-
+                    <Grid container justifyContent="center" alignItems="center" mb={1}>
+                        <IconButton disableRipple>
+                            <Image src="/discord.png" width={38} height={39} alt='discord' />
+                        </IconButton>
+                        <IconButton disableRipple >
+                            <Image src="/facebook.png" width={32} height={32} alt='facebook' />
+                        </IconButton>
+                        <IconButton disableRipple >
+                            <Image src="/github.png" width={32} height={32} alt='github' />
+                        </IconButton>
                     </Grid>
-                </Box>
+
+                    <Typography textAlign="center">
+                        Already Registered?
+                        <Link href={query.p ? `/auth/login?p=${query.p}` : '/auth/login'} className="custom-link" >
+                            Login
+                        </Link>
+                    </Typography>
+                </Grid>
+
             </form>
         </AuthLayout >
     )

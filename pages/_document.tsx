@@ -5,6 +5,7 @@ export default function Document() {
     <Html lang="en" style={{ scrollBehavior: 'smooth' }}>
 
       <Head>
+        <link rel="icon" type="png" sizes="32x32" href="/favicon.png" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&family=Roboto&display=swap" rel="stylesheet" />
@@ -15,6 +16,7 @@ export default function Document() {
         <NextScript />
       </body>
 
+      <script src="https://cdn.sellix.io/static/js/embed.js"></script>
 
     </Html>
   )

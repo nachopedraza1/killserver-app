@@ -22,7 +22,7 @@ const AboutPage: NextPage = () => {
     return (
         <MainLayout title="Website List">
             <Grid container minHeight="100vh" justifyContent="center" alignItems="center" textAlign="center" data-aos="fade-up">
-                <Grid item xs={6}>
+                <Grid item xs={12} md={6}>
                     <Grid container direction="column" gap={2}>
                         <Typography variant="h3" textTransform="uppercase" color="primary.main"> Website list </Typography>
                         <span className="line"></span>
@@ -41,7 +41,7 @@ const AboutPage: NextPage = () => {
                 <TableContainer>
 
                     <Grid container alignItems="center" padding={2} gap={3} >
-                        <Grid item xs={3}>
+                        <Grid item xs={12} sm={5.7} md={3}>
                             <TextField
                                 disabled
                                 fullWidth
@@ -57,7 +57,7 @@ const AboutPage: NextPage = () => {
                             />
                         </Grid>
 
-                        <Grid item xs={2}>
+                        <Grid item xs={12} sm={5.7} md={2}>
                             <TextField
                                 select
                                 fullWidth
@@ -69,7 +69,7 @@ const AboutPage: NextPage = () => {
                             </TextField>
                         </Grid>
 
-                        <Grid xs={6}>
+                        <Grid xs={12} md={6}>
                             <Typography textAlign="end" variant="h5">Section under maintenance <FontAwesomeIcon icon={faScrewdriverWrench} /> </Typography>
                         </Grid>
                     </Grid>

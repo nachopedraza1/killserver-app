@@ -23,7 +23,7 @@ export const MainLayout = ({ children, pageDescription, title }: Props) => {
 
             <Navbar />
             <main>
-                <Container >
+                <Container>
                     {children}
                 </Container>
             </main>

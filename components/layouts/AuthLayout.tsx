@@ -20,7 +20,7 @@ export const AuthLayout: FC<Props> = ({ children, title }) => {
 
             <main>
                 <Container>
-                    <Grid container minHeight="100vh" overflow="hidden">
+                    <Grid container minHeight="100vh" justifyContent="center" overflow="hidden">
 
                         <AppBar sx={{ pt: 2 }}>
                             <Container>
@@ -30,12 +30,12 @@ export const AuthLayout: FC<Props> = ({ children, title }) => {
                             </Container>
                         </AppBar>
 
-                        <Grid item xs={6} mt={2} position="relative">
+                        <Grid item md={6} mt={2} position="relative" display={{ xs: "none", md: "flex" }}>
                             <Box className="ilust-login">
                                 <Image src="/ilust-home5.png" alt="Kill a Server" objectFit="contain" fill />
                             </Box>
                         </Grid>
-                        <Grid item xs={6} display="flex" alignItems="center" justifyContent="end" className="fadeIn">
+                        <Grid item xs={12} md={6} display="flex" alignItems="center" justifyContent={{ xs: 'center', md: 'end' }} className="fadeIn">
                             {children}
                         </Grid>
                     </Grid>

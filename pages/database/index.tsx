@@ -13,7 +13,7 @@ const DatabasePage: NextPage = () => {
     return (
         <MainLayout title="Server List">
             <Grid container minHeight="100vh" justifyContent="center" alignItems="center" textAlign="center" data-aos="fade-up">
-                <Grid item xs={6}>
+                <Grid item xs={12} md={6}>
                     <Grid container direction="column" gap={2}>
                         <Typography variant="h3" textTransform="uppercase" color="primary.main"> server list </Typography>
                         <span className="line"></span>
@@ -25,7 +25,6 @@ const DatabasePage: NextPage = () => {
                     <Button variant='contained' href={process.env.NEXT_PUBLIC_TELEGRAM!} target="_blank" >
                         contact us
                     </Button>
-
                     <AddServer />
                 </Grid>
             </Grid>

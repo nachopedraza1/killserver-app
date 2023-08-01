@@ -64,8 +64,8 @@ export const AddServer: FC = () => {
                 <Fade in={openServerModal}>
                     <Box className="bg-modal">
                         <Box position="relative">
-                            <Box width="70%" height="200px" className="img-z">
-                                <Image src="/addserver.png" alt="upload-server" fill objectFit="cover" />
+                            <Box width="100%" height="200px" className="img-z">
+                                <Image src="/addserver.png" alt="upload-server" fill objectFit="contain" />
                             </Box>
                             <Typography variant="h5" textAlign="center" fontWeight={600} > Add server </Typography>
                             <Typography mb={1}> Please enter the server data, our experts will analyze it and if any vulnerability is found, it will be posted in our list. </Typography>

@@ -90,7 +90,7 @@ export const TableServers = () => {
         <TableContainer>
 
             <Grid container alignItems="center" padding={2} gap={3} >
-                <Grid item xs={3}>
+                <Grid item xs={12} sm={3.5} md={3}>
                     <TextField
                         fullWidth
                         size="small"
@@ -106,7 +106,7 @@ export const TableServers = () => {
                         }}
                     />
                 </Grid>
-                <Grid item xs={2}>
+                <Grid item xs={5.5} sm={3.5} md={2}>
                     <TextField
                         select
                         fullWidth
@@ -122,7 +122,7 @@ export const TableServers = () => {
                         <MenuItem value="aion"> Aion Online </MenuItem>
                     </TextField>
                 </Grid>
-                <Grid item xs={2}>
+                <Grid item xs={5.5} sm={3.5} md={2}>
                     <TextField
                         select
                         fullWidth

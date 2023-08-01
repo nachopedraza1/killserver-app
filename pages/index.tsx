@@ -14,9 +14,9 @@ const HomePage = () => {
     <MainLayout title='Home'>
 
       <Grid container minHeight="100vh" justifyContent="center" alignItems="center" data-aos="fade-up">
-        <Grid item xs={6} >
+        <Grid item xs={12} md={6} display={{ xs: 'none', md: 'flex' }}>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} md={6}>
           <Grid container direction="column" gap={1}>
             <Image src="/miniilust.png" alt='Kill a server' width={115} height={20} />
             <Typography variant="h3" textTransform="uppercase" color="primary.main"> search and destroy </Typography>
@@ -42,7 +42,7 @@ const HomePage = () => {
       </Grid>
 
       <Grid container justifyContent="center" alignItems="center" mt={5} data-aos="fade">
-        <Grid item xs={6}>
+        <Grid item xs={12} md={6}>
           <Grid container direction="column" gap={1}>
             <Image src="/miniilust.png" alt='Kill a server' width={115} height={20} />
             <Typography variant="h3" textTransform="uppercase" color="primary.main"> about us </Typography>
@@ -52,7 +52,7 @@ const HomePage = () => {
             contact us
           </Button>
         </Grid>
-        <Grid item xs={6} textAlign="center" position="relative">
+        <Grid item xs={12} md={6} textAlign="center" position="relative">
           <Box width="80%" height={330}>
             <Image src="/ilust-home2.png" alt='Kill a server database' fill objectFit='contain' />
           </Box>
@@ -66,19 +66,19 @@ const HomePage = () => {
           <Typography variant="h3" textTransform="uppercase" color="primary.main" mb={2}> our team </Typography>
           <span className="line" ></span>
         </Grid>
-        <Grid item xs={2.6} className="team-card">
+        <Grid item xs={12} sm={5.7} md={2.6} className="team-card">
           <Typography variant="h6">Vladmir</Typography>
           <Typography>DDOS Expert</Typography>
         </Grid>
-        <Grid item xs={2.6} className="team-card">
+        <Grid item xs={12} sm={5.7} md={2.6} className="team-card">
           <Typography variant="h6">Cracket</Typography>
           <Typography>XSS Expert</Typography>
         </Grid>
-        <Grid item xs={2.6} className="team-card">
+        <Grid item xs={12} sm={5.7} md={2.6} className="team-card">
           <Typography variant="h6">Secret</Typography>
           <Typography>SQLI  expert</Typography>
         </Grid>
-        <Grid item xs={2.6} className="team-card">
+        <Grid item xs={12} sm={5.7} md={2.6} className="team-card">
           <Typography variant="h6">XZT</Typography>
           <Typography>SQLI  expert</Typography>
         </Grid>
