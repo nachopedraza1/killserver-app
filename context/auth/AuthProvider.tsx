@@ -6,7 +6,7 @@ import { signIn, signOut, useSession } from 'next-auth/react';
 import { isAxiosError } from 'axios';
 
 import { alertSnack } from '@/utils';
-import { killApi } from '@/api';
+import { killApi } from '@/axios';
 
 import { IUser } from '@/interfaces';
 

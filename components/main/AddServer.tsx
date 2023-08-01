@@ -8,7 +8,7 @@ import { useSession } from "next-auth/react";
 
 import { UiContext } from "@/context/ui";
 import { hostings, games, alertSnack } from "@/utils";
-import { killApi } from "@/api";
+import { killApi } from "@/axios";
 
 import { Modal, Backdrop, Box, Fade, TextField, Typography, Grid, MenuItem, Button } from "@mui/material";
 import { Games, Hostings } from "@/interfaces";

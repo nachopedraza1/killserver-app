@@ -28,14 +28,14 @@ export const authOptions: NextAuthOptions = {
                 return await dbUsers.checkUserEmailPassword(credentials!.email, credentials!.password);
             },
         }),
-        DiscordProvider({
+       /*  DiscordProvider({
             clientId: process.env.DISCORD_CLIENT_ID!,
             clientSecret: process.env.DISCORD_CLIENT_SECRET!
         }),
         GitHubProvider({
             clientId: process.env.GITHUB_ID!,
             clientSecret: process.env.GITHUB_SECRET!
-        })
+        }) */
     ],
 
     session: {
