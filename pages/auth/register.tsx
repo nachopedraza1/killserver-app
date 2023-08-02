@@ -1,16 +1,16 @@
-import { useContext, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { GetServerSideProps, NextPage } from "next"
 import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
 
-import { getSession } from "next-auth/react";
+import { getProviders, getSession, signIn } from "next-auth/react";
 import { useForm } from "react-hook-form";
 
 import { isEmail } from "@/utils";
 import { AuthContext } from "@/context";
 
-import { Box, Grid, Typography, TextField, Button, Divider, CircularProgress, IconButton } from '@mui/material';
+import { Grid, Typography, TextField, Button, Divider, CircularProgress, IconButton } from '@mui/material';
 import { AuthLayout, ReCaptcha } from "@/components";
 import ReCAPTCHA from 'react-google-recaptcha';
 
@@ -21,6 +21,14 @@ type FormData = {
 };
 
 const RegisterPage: NextPage = () => {
+
+    const [providers, setProviders] = useState<any>({});
+
+    useEffect(() => {
+        getProviders().then(prov => {
+            setProviders(prov)
+        })
+    }, [])
 
     const recaptchaRef = useRef<ReCAPTCHA>(null);
 
@@ -50,7 +58,7 @@ const RegisterPage: NextPage = () => {
                         label="Name"
                         placeholder="Enter your name"
                         {...register('name', {
-                            required: 'Este campo es requerido',
+                            required: 'Required',
                             minLength: { value: 2, message: 'Mínimo 2 caracteres' }
                         })}
                         error={!!errors.name}
@@ -63,7 +71,7 @@ const RegisterPage: NextPage = () => {
                         label="Email"
                         placeholder="Enter your email"
                         {...register('email', {
-                            required: 'Este campo es requerido',
+                            required: 'Required',
                             validate: isEmail
                         })}
                         error={!!errors.email}
@@ -76,7 +84,7 @@ const RegisterPage: NextPage = () => {
                         label="Password"
                         placeholder="Enter your password"
                         {...register('password', {
-                            required: 'Este campo es requerido',
+                            required: 'Required',
                             minLength: { value: 6, message: 'Mínimo 6 caracteres' }
                         })}
                         error={!!errors.password}
@@ -92,13 +100,13 @@ const RegisterPage: NextPage = () => {
                     <Divider sx={{ width: '100%' }} >or</Divider>
 
                     <Grid container justifyContent="center" alignItems="center" mb={1}>
-                        <IconButton disableRipple>
+                        <IconButton disableRipple onClick={() => signIn(providers.discord.id)}>
                             <Image src="/discord.png" width={38} height={39} alt='discord' />
                         </IconButton>
-                        <IconButton disableRipple >
+                        <IconButton disableRipple onClick={() => signIn(providers.facebook.id)}  >
                             <Image src="/facebook.png" width={32} height={32} alt='facebook' />
                         </IconButton>
-                        <IconButton disableRipple >
+                        <IconButton disableRipple onClick={() => signIn(providers.github.id)} >
                             <Image src="/github.png" width={32} height={32} alt='github' />
                         </IconButton>
                     </Grid>

@@ -12,7 +12,7 @@ import ReCAPTCHA from 'react-google-recaptcha';
 import { isEmail } from "@/utils";
 import { AuthContext } from '@/context';
 
-import { Box, Button, CircularProgress, Divider, Grid, IconButton, TextField, Typography } from "@mui/material";
+import { Button, CircularProgress, Divider, Grid, IconButton, TextField, Typography } from "@mui/material";
 import { AuthLayout, ReCaptcha } from "@/components";
 
 type FormData = {
@@ -26,7 +26,6 @@ const LoginPage: NextPage = () => {
 
     useEffect(() => {
         getProviders().then(prov => {
-            console.log({ prov })
             setProviders(prov)
         })
     }, [])
@@ -61,7 +60,7 @@ const LoginPage: NextPage = () => {
                         label="Email"
                         placeholder="Enter your email"
                         {...register('email', {
-                            required: 'Este campo es requerido',
+                            required: 'Required',
                             validate: isEmail
                         })}
                         error={!!errors.email}
@@ -74,7 +73,7 @@ const LoginPage: NextPage = () => {
                         label="Password"
                         placeholder="Enter your password"
                         {...register('password', {
-                            required: 'Este campo es requerido',
+                            required: 'Required',
                             minLength: { value: 6, message: 'Mínimo 6 caracteres' }
                         })}
                         error={!!errors.password}
