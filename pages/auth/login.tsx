@@ -95,7 +95,7 @@ const LoginPage: NextPage = () => {
                         <IconButton disableRipple onClick={() => signIn(providers.discord.id)}>
                             <Image src="/discord.png" width={38} height={39} alt='discord' />
                         </IconButton>
-                        <IconButton disableRipple  >
+                        <IconButton disableRipple onClick={() => signIn(providers.facebook.id)}  >
                             <Image src="/facebook.png" width={32} height={32} alt='facebook' />
                         </IconButton>
                         <IconButton disableRipple onClick={() => signIn(providers.github.id)} >
@@ -110,7 +110,7 @@ const LoginPage: NextPage = () => {
                         </Link>
                     </Typography>
                 </Grid>
-                
+
             </form>
         </AuthLayout>
     )
