@@ -1,8 +1,8 @@
 import { FC, ReactNode } from "react";
 import Head from "next/head";
 
-import { Footer, Navbar } from "../ui";
-import { Container, Grid } from "@mui/material";
+import { Footer, Navbar, NavbarMobile } from "../ui";
+import { Box, Container, Grid } from "@mui/material";
 
 interface Props {
     title: string,
@@ -21,13 +21,15 @@ export const MainLayout = ({ children, pageDescription, title }: Props) => {
                 <meta name="og:description" content={pageDescription} />
             </Head>
 
-            <Navbar />
+            <Box display={{ xs: 'none', md: 'flex' }}><Navbar /></Box>
+            <Box display={{ md: 'none' }}><NavbarMobile /></Box>
+
             <main>
                 <Container>
                     {children}
                 </Container>
             </main>
-            <Footer />
+              <Footer />
         </Grid>
     )
 }

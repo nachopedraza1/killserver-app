@@ -2,9 +2,11 @@ import { createContext } from 'react';
 
 
 interface ContextProps {
+    sidebarOpen: boolean,
     openServerModal: boolean;
-    
-    toggleModal: () => void
+
+    toggleModal: () => void;
+    toggleSideBar: () => void;
 }
 
 

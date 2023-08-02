@@ -32,7 +32,7 @@ export const PaginationTable: FC<{ gameservers: IGameServer[], page: number }> =
 
                     <StyledTableCell>
                         <Box width="100%" height={35} pt={0.7} position="relative">
-                            <Image src={`/${game}.png`} alt={`Kill Server ${game}`} fill objectFit="contain" />
+                            <Image src={`/${game}.png`} alt={`Kill Server ${game}`} fill style={{objectFit:"contain"}} sizes="1" />
                         </Box>
                     </StyledTableCell>
 
@@ -57,12 +57,10 @@ export const PaginationTable: FC<{ gameservers: IGameServer[], page: number }> =
                     </StyledTableCell>
 
                     <StyledTableCell align="center">
-                        <Button variant="contained" type="submit" data-sellix-product="64c8a3c085041">
+                        <Button variant="contained" type="submit" data-sellix-group="64c9743b3c533">
                             KILL
                         </Button>
                     </StyledTableCell>
-
-                    <Script src="https://cdn.sellix.io/static/js/embed.js"></Script>
 
                 </TableRow>
             ))}

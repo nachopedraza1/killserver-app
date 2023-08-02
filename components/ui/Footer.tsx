@@ -22,37 +22,38 @@ export const Footer: FC = () => {
             <AppBar position="relative">
                 <Toolbar sx={{ pt: 2, pb: 2, mt: 5 }}>
                     <Container>
-                        <Grid container justifyContent="space-between">
-                            <Grid item xs={2}>
+                        <Grid container justifyContent="space-between" alignItems="center" direction={{ xs: 'column', sm: 'row' }}>
+
+                            <Grid item >
                                 <Image src="/Logo.png" alt="Kill a Server" width={170} height={60} />
                             </Grid>
-                            <Grid item display="flex" alignItems="center">
-                                <nav>
-                                    <List sx={{ display: 'flex' }}>
-                                        {navLinks.map(({ text, path, target }) => (
-                                            <ListItem key={text}>
-                                                <MuiLink component={Link} href={path} fontSize={13} letterSpacing={3} className="nav-link" target={target}>
-                                                    {text}
-                                                </MuiLink>
-                                            </ListItem>
-                                        ))}
-                                    </List>
-                                </nav>
 
-                                {
-                                    status == 'unauthenticated'
-                                    &&
-                                    <>
-                                        < Button variant="contained" sx={{ ml: 2, px: 3 }}>
-                                            Login
-                                        </Button>
-                                        <Button variant="outlined" sx={{ ml: 2, px: 3 }}>
-                                            Register
-                                        </Button>
-                                    </>
-                                }
+                            <Grid item >
+                                <Grid container alignItems="center" gap={3} direction={{ xs: 'column', sm: 'row' }}>
+                                    {navLinks.map(({ text, path, target }) => (
+                                        <Grid key={text}>
+                                            <MuiLink component={Link} href={path} fontSize={13} letterSpacing={3} className="nav-link" target={target}>
+                                                {text}
+                                            </MuiLink>
+                                        </Grid>
+                                    ))}
+                                    {
+                                        status == 'unauthenticated'
+                                        &&
+                                        <Grid item >
+                                            <Button variant="contained" sx={{ ml: 2, px: 3 }}>
+                                                Login
+                                            </Button>
+                                            <Button variant="outlined" sx={{ ml: 2, px: 3 }}>
+                                                Register
+                                            </Button>
+                                        </Grid>
+                                    }
+                                </Grid>
                             </Grid>
+
                         </Grid>
+
                     </Container>
                 </Toolbar>
             </AppBar>

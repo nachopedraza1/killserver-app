@@ -73,7 +73,7 @@ const addServer = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 const getServers = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 
     await db.connect();
-    const servers = await GameServer.find({ posted: 'posted' }).lean();
+    const servers = await GameServer.find({ posted: 'posted' }).sort({ createdAt: -1 }).lean();
     await db.disconnect();
 
     return res.status(200).json(servers)

@@ -25,7 +25,8 @@ const settings_custom = {
                 slidesToShow: 3,
                 slidesToScroll: 1,
                 infinite: true,
-                dots: true
+                dots: true,
+                arrows: false,
             }
         },
         {
@@ -33,12 +34,14 @@ const settings_custom = {
             settings: {
                 slidesToShow: 2,
                 slidesToScroll: 1,
-                initialSlide: 2
+                initialSlide: 2,
+                arrows: false,
             }
         },
         {
             breakpoint: 500,
             settings: {
+                arrows: false,
                 slidesToShow: 1,
                 slidesToScroll: 1
             }

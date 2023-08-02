@@ -2,6 +2,7 @@ import { UiState } from './';
 
 type UiActionType =
     | { type: '[Ui] - toggleModal' }
+    | { type: '[Ui] - toggleSidebar' }
 
 
 export const uiReducer = (state: UiState, action: UiActionType): UiState => {
@@ -11,6 +12,11 @@ export const uiReducer = (state: UiState, action: UiActionType): UiState => {
             return {
                 ...state,
                 openServerModal: !state.openServerModal
+            }
+        case '[Ui] - toggleSidebar':
+            return {
+                ...state,
+                sidebarOpen: !state.sidebarOpen
             }
 
         default:
