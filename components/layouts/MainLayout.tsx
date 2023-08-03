@@ -16,9 +16,9 @@ export const MainLayout = ({ children, pageDescription, title }: Props) => {
 
             <Head>
                 <title>{title}</title>
-                <meta name="description" content={pageDescription} />
+                <meta name="description" content="Explore our database of breached servers by our experts, we have the best and unique system penetration techniques, start destroying your competition." />
                 <meta name="og:title" content={title} />
-                <meta name="og:description" content={pageDescription} />
+                <meta name="og:description" content="Explore our database of breached servers by our experts, we have the best and unique system penetration techniques, start destroying your competition." />
                 <meta name="og:image" content="/favicon.png" />
             </Head>
 
@@ -30,7 +30,7 @@ export const MainLayout = ({ children, pageDescription, title }: Props) => {
                     {children}
                 </Container>
             </main>
-              <Footer />
+            <Footer />
         </Grid>
     )
 }
