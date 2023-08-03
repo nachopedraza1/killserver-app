@@ -4,8 +4,8 @@ import { Grid, Typography } from '@mui/material';
 
 export const ErrorPage: NextPage = () => {
     return (
-        <Grid container minHeight="100vh">
-            <Typography> {"don't even try, lol"} </Typography>
+        <Grid container minHeight="100vh" justifyContent="center" alignItems="center">
+            <Typography textAlign="center"> {"don't even try, lol"} </Typography>
         </Grid>
     )
 }
