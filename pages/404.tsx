@@ -1,10 +1,11 @@
-import React from 'react'
 
-const ErrorPage = () => {
+import { NextPage } from 'next'
+import { Grid, Typography } from '@mui/material';
+
+export const ErrorPage: NextPage = () => {
     return (
-        <div>don't even try, lol</div>
+        <Grid container minHeight="100vh">
+            <Typography> {"don't even try, lol"} </Typography>
+        </Grid>
     )
 }
-
-export default ErrorPage;
-
