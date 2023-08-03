@@ -19,6 +19,7 @@ export const MainLayout = ({ children, pageDescription, title }: Props) => {
                 <meta name="description" content={pageDescription} />
                 <meta name="og:title" content={title} />
                 <meta name="og:description" content={pageDescription} />
+                <meta name="og:image" content="/Logo.png" />
             </Head>
 
             <Box display={{ xs: 'none', md: 'flex' }}><Navbar /></Box>
